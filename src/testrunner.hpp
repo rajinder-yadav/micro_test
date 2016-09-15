@@ -124,7 +124,7 @@ public:
    }
 };
 
-} // namespace MicroTester
+} // namespace MicroTest
 
 #endif // _test_runner_hpp_
 
