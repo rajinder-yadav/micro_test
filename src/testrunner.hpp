@@ -1,8 +1,18 @@
-//==================================================================================================
-// The MIT License (MIT)
-//
-// Copyright (c) 2016 Rajinder Yadav <rajinder.yadav@hotmail.com>
-//==================================================================================================
+/**
+ * @file:   testrunner.hpp
+ * @brief: Micro Test
+ *
+ * @author: Rajinder Yadav
+ * @date:   Sep 15, 2016 at 05:03 AM
+ *
+ * @description
+ * A micro testing framework for C++11 code.
+ *
+ * License: MIT License (MIT)
+ * Copyright (c) 2016 Rajinder Yadav <rajinder.yadav@hotmail.com>
+ *
+ * Notice: This Software is provided as-is without warrant.
+ */
 
 #ifndef _test_runner_hpp_
 #define _test_runner_hpp_

@@ -1,16 +1,15 @@
 /**
  * @file:   main.cpp
- * @brief:
+ * @brief: Example code
  *
- * @author:
+ * @author: Rajinder Yadav
  * @date:   Sep 15, 2016 at 05:03 AM
  *
  * @description
- * <Enter long description here>
+ * Sample code showing the usage of Micro Test
  *
  * License: MIT License (MIT)
- * License: GNU Public License (GNU GPL)
- * Copyright (c) <year> <copyright holders>
+ * Copyright (c) 2016 Rajinder Yadav <rajinder.yadav@hotmail.com>
  *
  * Notice: This Software is provided as-is without warrant.
  */
