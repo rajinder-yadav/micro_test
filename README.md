@@ -4,7 +4,7 @@ Testing just got a whole lot simpler, faster and easy to do, you have no more ex
 
 Write beautiful easy to read test code with Micro Test and to get going all you need is a single include, in fact the entire framework is contained inside a single file less than 100 lines of code!
 
-![Test Image(https://bytebucket.org/rajinder_yadav/micro_test/raw/e6f1f379839d51cfff03ca8389a4566fef3da2a7/micro-test.png)
+![Test Image](https://bytebucket.org/rajinder_yadav/micro_test/raw/e6f1f379839d51cfff03ca8389a4566fef3da2a7/micro-test.png)
 
 Micro Test is a very small and lean unit test framework that is both easy and simple to use. The framework was intentionally kept simple, feel free to extend it as you see fit. There is no immediate plan to build it out further. This project exists for those who need something minimal to get going with testing, without the headache of complexity!
 
