@@ -15,6 +15,8 @@
 
 using std::cout;
 
+namespace MicroTest {
+
 class TestRunner
 {
    // Test success & fail counts
@@ -62,19 +64,32 @@ public:
       check( f );
    }
 
-   void ex( func_t fn )
+   void ex( func_t fn, bool expecting_exception = true )
    {
+      bool exception_thrown = false;
+
       try
       {
          fn();
-         ++fail;
-         cout << char( 0x1B ) << "[31mFail: " << test << char( 0x1B ) << "[37m" << "\n";
+         exception_thrown = false;
       }
       catch ( ... )
+      {
+         exception_thrown = true;
+      }
+
+      if ( ( exception_thrown && expecting_exception ) ||
+           ( !exception_thrown && !expecting_exception ) )
       {
          ++pass;
          cout << char( 0x1B ) << "[32mPass: " << test << char( 0x1B ) << "[37m" << "\n";
       }
+      else
+      {
+         ++fail;
+         cout << char( 0x1B ) << "[31mFail: " << test << char( 0x1B ) << "[37m" << "\n";
+      }
+
       // Clear error buffer & error states
       err_out.str( "" );
       err_out.clear();
@@ -92,11 +107,14 @@ public:
          ++fail;
          cout << char( 0x1B ) << "[31mFail: " << test << char( 0x1B ) << "[37m" << "\n";
       }
+
       // Clear error buffer & error states
       err_out.str( "" );
       err_out.clear();
    }
 };
+
+} // namespace MicroTester
 
 #endif // _test_runner_hpp_
 

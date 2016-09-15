@@ -33,7 +33,7 @@ int main( int argc, char * argv[] )
     * This will kick off the tests.
     * We place each test inside blocks to localize variable declarations.
     */
-   TestRunner test;
+   MicroTest::TestRunner test;
    test = "This will Pass";
    {
       test( true );
@@ -42,17 +42,23 @@ int main( int argc, char * argv[] )
    {
       test( false );
    }
-   test = "This will throw an exception";
+   test = "Checking an exception is thrown (passing test)";
    {
       test.ex( [] {
             throw(1);
       } );
    }
-   test = "Exception expected!";
+   test = "Expecting and exception, but failed to get one (failing test)";
    {
       test.ex( [] {
             // NOP
       } );
+   }
+   test = "Exception not expected (passing test)";
+   {
+      test.ex( [] {
+            // NOP
+      }, false );
    }
 
    return 0;
