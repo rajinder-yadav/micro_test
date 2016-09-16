@@ -1,6 +1,6 @@
 #Micro Test For C++11
 
-Testing just got a whole lot simpler, faster and easy to do, you have no more excuse not to test!
+Testing just got a whole lot simpler, faster and easy to get done, you have no more excuse not to test!
 
 Write beautiful easy to read test code with Micro Test and to get going all you need is a single include, in fact the entire framework is contained inside a single file less than 100 lines of code!
 
@@ -10,17 +10,21 @@ Micro Test is a very small and lean unit test framework that is both easy and si
 
 Here are the following steps you need to start testing with 'Micro Test'.
 
-Include the following header files.
+Copy the file micro-test.hpp into the root of your test folder.
+
+Include the following header files from the source file of your test project.
 
 ```
 #include <iostream>
 #include <string>
-#include <fstream>
+#include <fstream> 
 #include <sstream>
 #include <functional>
+
+#include "micro-test.hpp"
 ```
 
-Create an instance of TestRunner, it's a good idea to use the name 'test' as it will become very obvious when you see the code examples.
+Create an instance of MicroTest::TestRunner, it's a good idea to use the name 'test' as it will become very obvious when you see the code examples.
 
 ```
 MicroTest::TestRunner test;
@@ -38,7 +42,7 @@ test = "Description of testing being performed";
 Inside the test block, pass a boolean value to object 'test' to indicate success or failure of the test.
 
 ```
-test = "Description of testing being performed";
+test = "Add values of 1 and 2, return sum of 3";
 {
   int sum = Add( 1, 2 );
   test( sum == 3 );

@@ -1,5 +1,5 @@
 /**
- * @file:   testrunner.hpp
+ * @file:   micro-test.hpp (v1.0)
  * @brief: Micro Test
  *
  * @author: Rajinder Yadav
@@ -14,9 +14,10 @@
  * Notice: This Software is provided as-is without warrant.
  */
 
-#ifndef _test_runner_hpp_
-#define _test_runner_hpp_
+#ifndef _micro_test_hpp_
+#define _micro_test_hpp_
 
+// Header files to include for Micro Test (Best practice, add to your source).
 //#include <iostream>
 //#include <string>
 //#include <fstream>
@@ -126,5 +127,4 @@ public:
 
 } // namespace MicroTest
 
-#endif // _test_runner_hpp_
-
+#endif // _micro_test_hpp_

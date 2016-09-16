@@ -20,7 +20,7 @@
 #include <sstream>
 #include <functional>
 
-#include "testrunner.hpp"
+#include "micro-test.hpp"
 
 using std::clog;
 using std::cout;
