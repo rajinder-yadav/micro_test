@@ -1,5 +1,5 @@
 /**
- * @file:   main.cpp
+ * @file:  main.cpp
  * @brief: Example code
  *
  * @author: Rajinder Yadav
@@ -21,10 +21,6 @@
 #include <functional>
 
 #include "micro-test.hpp"
-
-using std::clog;
-using std::cout;
-using std::endl;
 
 int main( int argc, char * argv[] )
 {

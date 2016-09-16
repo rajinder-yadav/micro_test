@@ -1,5 +1,5 @@
 /**
- * @file:   micro-test.hpp (v1.0)
+ * @file:   micro-test.hpp (v1.0.1)
  * @brief: Micro Test
  *
  * @author: Rajinder Yadav
@@ -23,8 +23,9 @@
 //#include <fstream>
 //#include <sstream>
 //#include <functional>
+//#include "micro-test.hpp"
 
-using std::cout;
+using std::clog;
 
 namespace MicroTest {
 
@@ -33,7 +34,6 @@ class TestRunner
    // Test success & fail counts
    int pass;
    int fail;
-   int exceptions;
 
    // To capture cerr output
    std::stringstream err_out;
@@ -47,18 +47,18 @@ public:
    TestRunner()
       : pass( 0 )
       , fail( 0 )
-      , exceptions( 0 )
    {
       // Capture cerr, don't want test output polluted.
       cerr_buf = std::cerr.rdbuf( err_out.rdbuf() );
-      cout << "Running tests\n"
-           << "=============\n";
+      clog << "Running tests\n"
+           << "=============\n"
+           << std::flush;
    }
 
    virtual ~TestRunner()
    {
-      cout << "===================================\n";
-      cout << "Tests run(" << pass + fail << ") "
+      clog << "===================================\n";
+      clog << "Tests run(" << pass + fail << ") "
            << "Passed(" << pass << ") "
            << "Failed(" << fail << ")\n\n";
       // Restore cerr
@@ -93,12 +93,12 @@ public:
            ( !exception_thrown && !expecting_exception ) )
       {
          ++pass;
-         cout << char( 0x1B ) << "[32mPass: " << test << char( 0x1B ) << "[37m" << "\n";
+         clog << char( 0x1B ) << "[32mPass: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
       }
       else
       {
          ++fail;
-         cout << char( 0x1B ) << "[31mFail: " << test << char( 0x1B ) << "[37m" << "\n";
+         clog << char( 0x1B ) << "[31mFail: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
       }
 
       // Clear error buffer & error states
@@ -111,12 +111,12 @@ public:
       if ( b )
       {
          ++pass;
-         cout << char( 0x1B ) << "[32mPass: " << test << char( 0x1B ) << "[37m" << "\n";
+         clog << char( 0x1B ) << "[32mPass: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
       }
       else
       {
          ++fail;
-         cout << char( 0x1B ) << "[31mFail: " << test << char( 0x1B ) << "[37m" << "\n";
+         clog << char( 0x1B ) << "[31mFail: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
       }
 
       // Clear error buffer & error states
