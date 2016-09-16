@@ -39,20 +39,23 @@ int main( int argc, char * argv[] )
    }
    test = "Checking an exception is thrown (passing test)";
    {
-      test.ex( [] {
-            throw(1);
+      test.ex( []
+      {
+         throw ( 1 );
       } );
    }
    test = "Expecting and exception, but failed to get one (failing test)";
    {
-      test.ex( [] {
-            // NOP
+      test.ex( []
+      {
+         // NOP
       } );
    }
    test = "Exception not expected (passing test)";
    {
-      test.ex( [] {
-            // NOP
+      test.ex( []
+      {
+         // NOP
       }, false );
    }
 

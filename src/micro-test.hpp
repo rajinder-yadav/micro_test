@@ -27,103 +27,104 @@
 
 using std::clog;
 
-namespace MicroTest {
-
-class TestRunner
+namespace MicroTest
 {
-   // Test success & fail counts
-   int pass;
-   int fail;
 
-   // To capture cerr output
-   std::stringstream err_out;
-   std::streambuf * cerr_buf;
-
-   std::string test;
-
-   typedef std::function<void()> func_t;
-
-public:
-   TestRunner()
-      : pass( 0 )
-      , fail( 0 )
+   class TestRunner
    {
-      // Capture cerr, don't want test output polluted.
-      cerr_buf = std::cerr.rdbuf( err_out.rdbuf() );
-      clog << "Running tests\n"
-           << "=============\n"
-           << std::flush;
-   }
+      // Test success & fail counts
+      int pass;
+      int fail;
 
-   virtual ~TestRunner()
-   {
-      clog << "===================================\n";
-      clog << "Tests run(" << pass + fail << ") "
-           << "Passed(" << pass << ") "
-           << "Failed(" << fail << ")\n\n";
-      // Restore cerr
-      std::cerr.rdbuf( cerr_buf );
-   }
+      // To capture cerr output
+      std::stringstream err_out;
+      std::streambuf * cerr_buf;
 
-   void operator= ( const std::string & s )
-   {
-      test = s;
-   }
+      std::string test;
 
-   void operator()( bool f )
-   {
-      check( f );
-   }
+      typedef std::function<void()> func_t;
 
-   void ex( func_t fn, bool expecting_exception = true )
-   {
-      bool exception_thrown = false;
-
-      try
+   public:
+      TestRunner()
+         : pass( 0 )
+         , fail( 0 )
       {
-         fn();
-         exception_thrown = false;
-      }
-      catch ( ... )
-      {
-         exception_thrown = true;
+         // Capture cerr, don't want test output polluted.
+         cerr_buf = std::cerr.rdbuf( err_out.rdbuf() );
+         clog << "Running tests\n"
+              << "=============\n"
+              << std::flush;
       }
 
-      if ( ( exception_thrown && expecting_exception ) ||
-           ( !exception_thrown && !expecting_exception ) )
+      virtual ~TestRunner()
       {
-         ++pass;
-         clog << char( 0x1B ) << "[32mPass: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
-      }
-      else
-      {
-         ++fail;
-         clog << char( 0x1B ) << "[31mFail: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
+         clog << "===================================\n";
+         clog << "Tests run(" << pass + fail << ") "
+              << "Passed(" << pass << ") "
+              << "Failed(" << fail << ")\n\n";
+         // Restore cerr
+         std::cerr.rdbuf( cerr_buf );
       }
 
-      // Clear error buffer & error states
-      err_out.str( "" );
-      err_out.clear();
-   }
-
-   void check( bool b )
-   {
-      if ( b )
+      void operator= ( const std::string & s )
       {
-         ++pass;
-         clog << char( 0x1B ) << "[32mPass: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
-      }
-      else
-      {
-         ++fail;
-         clog << char( 0x1B ) << "[31mFail: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
+         test = s;
       }
 
-      // Clear error buffer & error states
-      err_out.str( "" );
-      err_out.clear();
-   }
-};
+      void operator()( bool f )
+      {
+         check( f );
+      }
+
+      void ex( func_t fn, bool expecting_exception = true )
+      {
+         bool exception_thrown = false;
+
+         try
+         {
+            fn();
+            exception_thrown = false;
+         }
+         catch ( ... )
+         {
+            exception_thrown = true;
+         }
+
+         if ( ( exception_thrown && expecting_exception ) ||
+              ( !exception_thrown && !expecting_exception ) )
+         {
+            ++pass;
+            clog << char( 0x1B ) << "[32mPass: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
+         }
+         else
+         {
+            ++fail;
+            clog << char( 0x1B ) << "[31mFail: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
+         }
+
+         // Clear error buffer & error states
+         err_out.str( "" );
+         err_out.clear();
+      }
+
+      void check( bool b )
+      {
+         if ( b )
+         {
+            ++pass;
+            clog << char( 0x1B ) << "[32mPass: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
+         }
+         else
+         {
+            ++fail;
+            clog << char( 0x1B ) << "[31mFail: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
+         }
+
+         // Clear error buffer & error states
+         err_out.str( "" );
+         err_out.clear();
+      }
+   };
 
 } // namespace MicroTest
 
