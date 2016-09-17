@@ -22,6 +22,11 @@
 
 #include "micro-test.hpp"
 
+int Add( const int a, const int b )
+{
+   return a + b;
+}
+
 int main( int argc, char * argv[] )
 {
    /**
@@ -31,11 +36,30 @@ int main( int argc, char * argv[] )
    MicroTest::TestRunner test;
    test = "This will Pass";
    {
-      test( true );
+      // Set test boolean success status.
+      // true  for Pass
+      // false for Fail
+      test.status = true;
+
+      // Show & collect test result.
+      test();
    }
    test = "This will Fail";
    {
+      // Alternatively pass boolean success status.
       test( false );
+   }
+   test = "Add values 2 and 3, return sum of 5";
+   {
+      int sum1 = Add( 1, 2 );
+      int sum2 = Add( 5, -2 );
+
+      test.status = ( sum1 == 3 ) && ( sum2 == 3 );
+      test();
+   }
+   test = "Add values 5 and -3, return sum of 2";
+   {
+      test( Add( 5, -3 ) == 2 );
    }
    test = "Checking an exception is thrown (passing test)";
    {
@@ -58,7 +82,5 @@ int main( int argc, char * argv[] )
          // NOP
       }, false );
    }
-
    return 0;
 }
-
