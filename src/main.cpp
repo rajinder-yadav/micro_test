@@ -22,10 +22,15 @@
 
 #include "micro-test.hpp"
 
+class TestException
+{
+};
+
 int Add( const int a, const int b )
 {
    return a + b;
 }
+
 
 int main( int argc, char * argv[] )
 {
@@ -63,24 +68,43 @@ int main( int argc, char * argv[] )
    }
    test = "Checking an exception is thrown (passing test)";
    {
-      test.ex( []
+      // By default we expect an exception to get thrown.
+      test.ex<int>( []
       {
          throw ( 1 );
       } );
    }
    test = "Expecting and exception, but failed to get one (failing test)";
    {
-      test.ex( []
+      // We're expecting an exception, none is thrown, so test fails.
+      test.ex<int>( []
       {
-         // NOP
+         // Call methods that might throw an exception here.
       } );
    }
    test = "Exception not expected (passing test)";
    {
-      test.ex( []
+      // An exception could get thrown, we're testing it will not!
+      test.ex<int>( []
       {
-         // NOP
+         // Call methods that might throw an exception here.
       }, false );
+   }
+   test = "Check custom exception is thrown";
+   {
+      // Expecting an exception of type TestException to be thrown.
+      test.ex<TestException>( []
+      {
+         throw TestException();
+      } );
+   }
+   test = "Check if correct exception is thrown";
+   {
+      // Expecting an exception of type TestException to be thrown.
+      test.ex<TestException>( []
+      {
+         throw(12);
+      } );
    }
    return 0;
 }
