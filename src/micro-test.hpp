@@ -1,5 +1,5 @@
 /**
- * @file:   micro-test.hpp (v1.0.1)
+ * @file:  micro-test.hpp
  * @brief: Micro Test
  *
  * @author: Rajinder Yadav
@@ -29,6 +29,7 @@ using std::clog;
 
 namespace MicroTest
 {
+   const std::string version("Micro Test v1.1");
 
    class TestRunner
    {
@@ -45,35 +46,47 @@ namespace MicroTest
       typedef std::function<void()> func_t;
 
    public:
+      // Success flag of current test.
+      bool status;
+
       TestRunner()
          : pass( 0 )
          , fail( 0 )
       {
          // Capture cerr, don't want test output polluted.
          cerr_buf = std::cerr.rdbuf( err_out.rdbuf() );
-         clog << "Running tests\n"
-              << "=============\n"
+         clog << "\no===================================o\n"
+              << "| " << version << " for C++           |\n"
+              << "|                                   |\n"
+              << "| Running Tests                     |\n"
+              << "o===================================o\n"
               << std::flush;
       }
 
       virtual ~TestRunner()
       {
-         clog << "===================================\n";
-         clog << "Tests run(" << pass + fail << ") "
+         clog << "==============================================\n";
+         clog << "Test Summary: Tests(" << pass + fail << ") "
               << "Passed(" << pass << ") "
               << "Failed(" << fail << ")\n\n";
          // Restore cerr
          std::cerr.rdbuf( cerr_buf );
       }
 
-      void operator= ( const std::string & s )
+      void operator = ( const std::string & s )
       {
          test = s;
       }
 
-      void operator()( bool f )
+      void operator()(bool f)
       {
-         check( f );
+         status = f;
+         check();
+      }
+
+      void operator()()
+      {
+         check();
       }
 
       void ex( func_t fn, bool expecting_exception = true )
@@ -107,9 +120,9 @@ namespace MicroTest
          err_out.clear();
       }
 
-      void check( bool b )
+      void check()
       {
-         if ( b )
+         if ( status )
          {
             ++pass;
             clog << char( 0x1B ) << "[32mPass: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
@@ -123,6 +136,7 @@ namespace MicroTest
          // Clear error buffer & error states
          err_out.str( "" );
          err_out.clear();
+         status = false;
       }
    };
 
