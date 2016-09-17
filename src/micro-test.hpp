@@ -29,7 +29,7 @@ using std::clog;
 
 namespace MicroTest
 {
-   const std::string version( "Micro Test v1.2" );
+   const std::string version( "Micro Test v1.3" );
 
    class TestRunner
    {
@@ -91,7 +91,8 @@ namespace MicroTest
          check();
       }
 
-      void ex( func_t fn, bool expecting_exception = true )
+      template <typename TEX>
+      void ex( func_t fn, bool exception_expected = true )
       {
          bool exception_thrown = false;
 
@@ -100,13 +101,18 @@ namespace MicroTest
             fn();
             exception_thrown = false;
          }
-         catch ( ... )
+         catch ( TEX & ex )
          {
             exception_thrown = true;
          }
+         catch ( ... )
+         {
+            // Not the exception tested for.
+            exception_thrown = false;
+         }
 
-         if ( ( exception_thrown && expecting_exception ) ||
-              ( !exception_thrown && !expecting_exception ) )
+         if ( ( exception_thrown && exception_expected ) ||
+              ( !exception_thrown && !exception_expected ) )
          {
             ++pass;
 
