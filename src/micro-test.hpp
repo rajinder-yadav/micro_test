@@ -29,7 +29,7 @@ using std::clog;
 
 namespace MicroTest
 {
-   const std::string version("Micro Test v1.1");
+   const std::string version( "Micro Test v1.2" );
 
    class TestRunner
    {
@@ -42,6 +42,7 @@ namespace MicroTest
       std::streambuf * cerr_buf;
 
       std::string test;
+      bool alert_mode;
 
       typedef std::function<void()> func_t;
 
@@ -49,9 +50,10 @@ namespace MicroTest
       // Success flag of current test.
       bool status;
 
-      TestRunner()
+      explicit TestRunner( bool enable_alert_mode = false )
          : pass( 0 )
          , fail( 0 )
+         , alert_mode( enable_alert_mode )
       {
          // Capture cerr, don't want test output polluted.
          cerr_buf = std::cerr.rdbuf( err_out.rdbuf() );
@@ -78,7 +80,7 @@ namespace MicroTest
          test = s;
       }
 
-      void operator()(bool f)
+      void operator()( bool f )
       {
          status = f;
          check();
@@ -107,7 +109,11 @@ namespace MicroTest
               ( !exception_thrown && !expecting_exception ) )
          {
             ++pass;
-            clog << char( 0x1B ) << "[32mPass: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
+
+            if ( ! alert_mode )
+            {
+               clog << char( 0x1B ) << "[32mPass: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
+            }
          }
          else
          {
@@ -125,7 +131,11 @@ namespace MicroTest
          if ( status )
          {
             ++pass;
-            clog << char( 0x1B ) << "[32mPass: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
+
+            if ( ! alert_mode )
+            {
+               clog << char( 0x1B ) << "[32mPass: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
+            }
          }
          else
          {

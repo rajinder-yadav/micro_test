@@ -1,6 +1,9 @@
 # Micro Test For C++11
 
-Testing just got a whole lot simpler, faster and easy to get done, you have no more excuse not to test!
+Testing just got a whole lot simpler, faster and fun to get done, you have no more excuse not to test! I wrote it because I believe writing tests and setting up a test project should be simple and painless.
+
+## Super Fast Execution
+Micro Test is blazing fast, an order of magititue faster than other C++ test frameworks, which I consider unnecessarily large and complex.
 
 ## Beautiful Test Code
 Write beautiful easy to read test code with Micro Test. To get going, all you need is a single include. In fact the entire framework is contained inside a single file less than 100 lines of code!
@@ -103,6 +106,21 @@ test = "Description of testing being performed";
 }
 ```
 
-See example usage inside **main.cpp**, notice how beautiful the testing code looks!
+## Alert Mode Testing
+We all love to see those green passing tests light up, but what we really care about is the failing test. Once you got all passing tests, it's time to switch to (alert mode) seeing only failing test. It's less clutter and when you're refactoring and making changes, you only care about fixing the failing test.
+
+**Speed TIP** - Large tests will execute much faster, since the bottleneck is output to the terminal.
+
+To enable alert mode testing, pass **true** to the test object constructor.
+
+```C++
+MicroTest::TestRunner test(true);
+```
+
+When the example code is changed to alert mode, the output will now look like this.
+
+![Failing Test Images](https://bytebucket.org/rajinder_yadav/micro_test/raw/1eb87ebe4969e3acb04e206a2bc03c85ee28d714/fails-only.png)
+
+Find test examples inside **main.cpp**.
 
 If you like this please share it with others :-) and send me some love!!!
