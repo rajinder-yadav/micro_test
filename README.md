@@ -69,7 +69,7 @@ test = "Add values of 1 and 2, return sum of 3";
 Alternatively you can assign the test success value to the **'status'** boolean member as the following code demonstrates. Note you still need to call **'test()'** at the end.
 
 ```C++
-test = "Add values of 1 and 2, return sum of 3";
+test = "Add positive and negative values";
 {
   int sum1 = Add( 1, 2 );
   int sum2 = Add( 5, -2 );
@@ -79,14 +79,15 @@ test = "Add values of 1 and 2, return sum of 3";
 ```
 
 ## Exception Testing
-If you would like to check that a function threw an exception, make use of the method ex.
+If you would like to check that a function threw a certain type of exception, make use of the template method ex.
 
 ```
-TestRunner::ex( Fn, boolean );
+TestRunner::ex<ExceptionType>( Fn, boolean );
 
 Function signature of Fn is: void func()
 In C++11 Fn should be using a lambda function.
 ```
+The exception type is declared as ExceptionType.
 
 The first argument will be a lambda function, inside it make other calls or perform operations that could throw an exception.
 
@@ -99,7 +100,7 @@ The second argument is a boolean flag indicating if an exception was expected.
 ```C++
 test = "Description of testing being performed";
 {
-  test.ex( [] {
+  test.ex<int>( [] {
     // Place code that could throw an exception inside lambda block!
     throw(1);
   }, <true_or_false> );
