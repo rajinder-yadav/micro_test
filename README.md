@@ -107,18 +107,18 @@ test = "Description of testing being performed";
 }
 ```
 
-## Alert Mode Testing
-We all love to see those green passing tests light up, but what we really care about is the failing test. Once you got all passing tests, it's time to switch to (alert mode) seeing only failing test. It's less clutter and when you're refactoring and making changes, you only care about fixing the failing test.
+## Fail Mode Testing
+We all love to see those green passing tests light up, but what we really care about is the failing test. Once you got all passing tests, it's time to switch to (fail mode) seeing only failing test. It's less clutter and when you're refactoring and making changes, you only care about fixing the failing test.
 
 **Speed TIP** - Large tests will execute much faster, since the bottleneck is output to the terminal.
 
-To enable alert mode testing, pass **true** to the test object constructor.
+To enable fail mode testing, pass **true** to the test object constructor.
 
 ```C++
 MicroTest::TestRunner test(true);
 ```
 
-When the example code is changed to alert mode, the output will now look like this.
+When the example code is changed to fail mode, the output will now look like this.
 
 ![Failing Test Images](https://bytebucket.org/rajinder_yadav/micro_test/raw/1eb87ebe4969e3acb04e206a2bc03c85ee28d714/fails-only.png)
 

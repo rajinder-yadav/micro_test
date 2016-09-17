@@ -42,7 +42,7 @@ namespace MicroTest
       std::streambuf * cerr_buf;
 
       std::string test;
-      bool alert_mode;
+      bool fail_mode;
 
       typedef std::function<void()> func_t;
 
@@ -50,10 +50,10 @@ namespace MicroTest
       // Success flag of current test.
       bool status;
 
-      explicit TestRunner( bool enable_alert_mode = false )
+      explicit TestRunner( bool enable_fail_mode = false )
          : pass( 0 )
          , fail( 0 )
-         , alert_mode( enable_alert_mode )
+         , fail_mode( enable_fail_mode )
       {
          // Capture cerr, don't want test output polluted.
          cerr_buf = std::cerr.rdbuf( err_out.rdbuf() );
@@ -116,7 +116,7 @@ namespace MicroTest
          {
             ++pass;
 
-            if ( ! alert_mode )
+            if ( ! fail_mode )
             {
                clog << char( 0x1B ) << "[32mPass: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
             }
@@ -138,7 +138,7 @@ namespace MicroTest
          {
             ++pass;
 
-            if ( ! alert_mode )
+            if ( ! fail_mode )
             {
                clog << char( 0x1B ) << "[32mPass: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
             }
