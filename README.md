@@ -22,7 +22,7 @@ Micro Test is a very small and lean unit test framework that is both easy and si
 
 Here are the following steps you need to start testing with 'Micro Test'.
 
-Copy the file micro-test.hpp into the root of your test folder.
+Copy the file **micro-test.hpp** into the root of your test folder.
 
 Include the following header files from the source file of your test project.
 
@@ -36,13 +36,16 @@ Include the following header files from the source file of your test project.
 #include "micro-test.hpp"
 ```
 
-Create an instance of MicroTest::TestRunner, it's a good idea to use the name 'test' as it will become very obvious when you see the code examples.
+Create an instance of **MicroTest::TestRunner**, it's a good idea to use the name **'test'** as it will become very obvious when you see the code examples.
 
 ```C++
 MicroTest::TestRunner test;
 ```
 ## Pass/Fail Testing
-For each test, use the following template, note we assign a string to object 'test', an instance of TestRunner.
+For each test, use the following template. As good test writers, we assign a string to object 'test', an instance of TestRunner. This serves two purposes:
+
+1. The message displayed during the test run.
+1. Documents the test it covers in the code block.
 
 ```C++
 test = "Description of testing being performed";
@@ -60,7 +63,7 @@ test = "Add values of 1 and 2, return sum of 3";
 }
 ```
 
-Alternatively you can assign the test success value to the 'status' boolean member as the following code demonstrates. Note you still need to call 'test()' at the end.
+Alternatively you can assign the test success value to the **'status'** boolean member as the following code demonstrates. Note you still need to call **'test()'** at the end.
 
 ```C++
 test = "Add values of 1 and 2, return sum of 3";
@@ -100,6 +103,6 @@ test = "Description of testing being performed";
 }
 ```
 
-See example usage inside main.cpp, notice how beautiful the testing code looks!
+See example usage inside **main.cpp**, notice how beautiful the testing code looks!
 
 If you like this please share it with others :-) and send me some love!!!
