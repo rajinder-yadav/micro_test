@@ -93,11 +93,10 @@ The second argument is a boolean flag indicating if an exception was expected.
 ```C++
 test = "Description of testing being performed";
 {
-  int sum = Add( 1, 2 );
   test.ex( [] {
-    // Perform operation or make a call inside here
-    // that could throw an exception!
-  }, <true or false> );
+    // Place code that could throw an exception inside lambda block!
+    throw(1);
+  }, <true_or_false> );
 }
 ```
 
