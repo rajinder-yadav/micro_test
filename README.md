@@ -76,9 +76,10 @@ test = "Add values of 1 and 2, return sum of 3";
 If you would like to check that a function threw an exception, make use of the method ex.
 
 ```
-TestRunner::ex( fn, boolean);
+TestRunner::ex( Fn, boolean );
 
-Function signature of fn is: void fn(), in C++11 you should be using a lambda function.
+Function signature of Fn is: void func()
+In C++11 Fn should be using a lambda function.
 ```
 
 The first argument will be a lambda function, inside it make other calls or perform operations that could throw an exception.
