@@ -29,22 +29,26 @@ using std::clog;
 
 namespace MicroTest
 {
-   const std::string version( "Micro Test v1.3" );
+   const std::string version( "Micro Test v1.4" );
 
    class TestRunner
    {
+      typedef std::function<void()> func_t;
+
       // Test success & fail counts
       int pass;
       int fail;
+
+      bool fail_mode;
+
+      func_t setup;
+      func_t cleanup;
 
       // To capture cerr output
       std::stringstream err_out;
       std::streambuf * cerr_buf;
 
       std::string test;
-      bool fail_mode;
-
-      typedef std::function<void()> func_t;
 
    public:
       // Success flag of current test.
@@ -54,6 +58,8 @@ namespace MicroTest
          : pass( 0 )
          , fail( 0 )
          , fail_mode( enable_fail_mode )
+         , setup{}
+         , cleanup{}
       {
          // Capture cerr, don't want test output polluted.
          cerr_buf = std::cerr.rdbuf( err_out.rdbuf() );
@@ -91,10 +97,21 @@ namespace MicroTest
          check();
       }
 
+      void fixture( func_t init = nullptr, func_t term = nullptr )
+      {
+         setup = init;
+         cleanup = term;
+      }
+
       template <typename TEX>
       void ex( func_t fn, bool exception_expected = true )
       {
          bool exception_thrown = false;
+
+         if ( setup )
+         {
+            setup();
+         }
 
          try
          {
@@ -127,6 +144,11 @@ namespace MicroTest
             clog << char( 0x1B ) << "[31mFail: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
          }
 
+         if ( cleanup )
+         {
+            cleanup();
+         }
+
          // Clear error buffer & error states
          err_out.str( "" );
          err_out.clear();
@@ -134,6 +156,11 @@ namespace MicroTest
 
       void check()
       {
+         if ( setup )
+         {
+            setup();
+         }
+
          if ( status )
          {
             ++pass;
@@ -147,6 +174,11 @@ namespace MicroTest
          {
             ++fail;
             clog << char( 0x1B ) << "[31mFail: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
+         }
+
+         if ( cleanup )
+         {
+            cleanup();
          }
 
          // Clear error buffer & error states
