@@ -89,6 +89,26 @@ test = "Add positive and negative values";
 }
 ```
 
+## Lamdba Function
+A lambda function is an anonymous function. Currently it is used when testing for exception and when using a fixture. If you don't need either, you can skip this section.
+
+This is the very basic you need to understand about a lambda as it applies to Micro Test. In it's most concise format, it is declared like this:
+
+```C++
+[] { /* Code goes here. */ }
+
+// Using line breaks, the lambda can be written in this style.
+
+[]
+{
+   // Code goes here.
+}
+```
+
+When you see that a function is required for a MicroTest::TestRunner method, you can make use of a simple lambda. The function signature of the lambda is a void argument and void return.
+
+Best practice is to use a lambda right at the test block, this keeps all the test code in the same place. It makes for improved readability and ease of code change because you avoid the need to hunt down external function code.
+
 ## Exception Testing
 If you would like to check that a function threw a certain type of exception, make use of the template method TestRunner::ex().
 
@@ -112,7 +132,7 @@ The second argument is a boolean flag indicating if an exception was expected.
 test = "Description of testing being performed";
 {
   test.ex<int>( [] {
-    // Place code that could throw an exception inside lambda block!
+   // Place test code that could throw an exception inside lambda block.
     throw(1);
   }, <true_or_false> );
 }
@@ -161,6 +181,8 @@ When you no longer have need for a fixture, to remove it, make the following cal
 ```C++
 test.fixture();
 ```
+
+All subsequent tests will run without a fixture.
 
 ## Test Suites
 To make use of test suites, it's as simple as separating each test suite in it's own test file. You've already seen how easy it's to create a test project. Just do the same with a new file to group your test as you see fit.
