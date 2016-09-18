@@ -187,8 +187,26 @@ All subsequent tests will run without a fixture.
 ## Test Suites
 To make use of test suites, it's as simple as separating each test suite in it's own test file. You've already seen how easy it's to create a test project. Just do the same with a new file to group your test as you see fit.
 
-## Building Nodes
+## Building Notes
 The Micro Test framework can be used to test C/C++ code, however you will require a C++11 or later compiler to build the Micro Test code, then use existing C or C++ code to test.
+
+You will need CMake to build the sample test project. Step to build the project from the terminal:
+
+```
+cd <project_root_folder>
+mkdir build
+cd build
+cmake -G "Unix Makefiles" -D CMAKE_BUILD_TYPE="Release" ../src
+make
+
+Run the sample code.
+
+./micro_tester
+
+For Windows change the cmake command above to:
+
+cmake -G "NMake Makefiles" -D CMAKE_BUILD_TYPE="Release" ../src
+```
 
 ## Sample Code
 Find test examples inside **main.cpp**, it will have the most up to date coding examples.
