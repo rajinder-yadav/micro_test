@@ -9,7 +9,7 @@
  * Sample code showing the usage of Micro Test
  *
  * License: MIT License (MIT)
- * Copyright (c) 2016 Rajinder Yadav <rajinder.yadav@hotmail.com>
+ * Copyright (c) 2016 Rajinder Yadav <info@devmentor.org>
  *
  * Notice: This Software is provided as-is without warrant.
  */

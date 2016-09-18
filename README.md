@@ -171,12 +171,15 @@ The Micro Test framework can be used to test C/C++ code, however you will requir
 ## Sample Code
 Find test examples inside **main.cpp**, it will have the most up to date coding examples.
 
+## Contact
 If you like Micro Test, please share it with others :-) and shoot me an email to let me know you found it very helpful for your next project!
 
 **Rajinder Yadav**
 
 **Labs DevMentor.org Corp.**
 
-**Email:** rajinder.yadav@hotmail.com
+**Web:** http://labs.devmentor.org
+
+**Email:** info@devmentor.org
 
 Happy Coding :-)
