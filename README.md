@@ -1,6 +1,4 @@
-![Logo Image](https://bytebucket.org/rajinder_yadav/micro_test/raw/5ce02d4df27d8ee0cdff184f6bf7b4c312762bbc/micro-test-logo.png)
-
-# Micro Test For C++ Testing
+# Micro Test For Testing C++ Code
 
 Testing just got a whole lot simpler, faster and fun to get done, you have no more excuse not to test! I wrote it because I believe writing tests and setting up a test project should be simple and painless.
 
