@@ -54,7 +54,7 @@ int main( int argc, char * argv[] )
       // Alternatively pass boolean success status.
       test( false );
    }
-   test = "Add values 2 and 3, return sum of 5";
+   test = "Add positive and negative values";
    {
       int sum1 = Add( 1, 2 );
       int sum2 = Add( 5, -2 );
