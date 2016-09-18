@@ -39,6 +39,31 @@ int main( int argc, char * argv[] )
     * We place each test inside blocks to localize variable declarations.
     */
    MicroTest::TestRunner test;
+
+   /* Example for setting a Fixture.
+    * Setup is called before each test.
+    * Cleanup is called after each test.
+    *
+    * To reset(clear) fixtures, simply make the call: test.fixture();
+    * Fixture will not be use after this call.
+    */
+
+   // Set this to true to see how fixtures would behave.
+   bool enable_fixture = false;
+
+   if ( enable_fixture )
+   {
+      test.fixture(
+         [] // Setup
+         {
+            std::clog << "Setting up fixture.\n" << std::flush;
+         },
+         [] // Cleanup
+         {
+            std::clog << "Cleaning up fixture.\n" << std::flush;
+         } );
+   }
+
    test = "This will Pass";
    {
       // Set test boolean success status.
@@ -103,7 +128,7 @@ int main( int argc, char * argv[] )
       // Expecting an exception of type TestException to be thrown.
       test.ex<TestException>( []
       {
-         throw(12);
+         throw ( 12 );
       } );
    }
    return 0;
