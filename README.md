@@ -1,4 +1,4 @@
-# Micro Test For C++11
+# Micro Test For C++ Testing
 
 Testing just got a whole lot simpler, faster and fun to get done, you have no more excuse not to test! I wrote it because I believe writing tests and setting up a test project should be simple and painless.
 
@@ -44,20 +44,28 @@ Create an instance of **MicroTest::TestRunner**, it's a good idea to use the nam
 ```C++
 MicroTest::TestRunner test;
 ```
-## Pass/Fail Testing
-For each test, use the following template. As good test writers, we assign a string to object 'test', an instance of TestRunner. This serves two purposes:
+We will make use of the **test** object in steps 1 and 3 below!
 
-1. The message displayed during the test run.
-1. Documents the test it covers in the code block.
+## Test Block
+A Test block is a single test you want to perform against a API (function). A test block always have these 3 items:
+
+1. Test description.
+1. Test block with you test code.
+1. Call to check the test result.
 
 ```C++
-test = "Description of testing being performed";
-{
+test = "Description of testing being performed";  // Step 1
+{                                                 // Step 2
   // Test code goes here.
+  test( <boolean_test_result> );                  // Step 3
 }
 ```
 
-Inside the test block, pass a boolean value to object 'test' to indicate success or failure of the test.
+## Pass/Fail Testing
+As good test writers, we assign a string to object 'test', an instance of MicroTest::TestRunner. This serves two purposes:
+
+1. It's the message displayed during the test run.
+1. It documents the test code block.
 
 ```C++
 test = "Add values of 1 and 2, return sum of 3";
@@ -66,20 +74,23 @@ test = "Add values of 1 and 2, return sum of 3";
 }
 ```
 
-Alternatively you can assign the test success value to the **'status'** boolean member as the following code demonstrates. Note you still need to call **'test()'** at the end.
+Above, in the test call, a boolean value is passed to indicate success or failure of the test execution.
+
+## Using Status Flag
+Alternatively you can assign the test success value to the **'status'** boolean member as the following code demonstrates. You are still required to call **'test()'** at the end.
 
 ```C++
 test = "Add positive and negative values";
 {
   int sum1 = Add( 1, 2 );
   int sum2 = Add( 5, -2 );
-  test.status = (sum1 == 3) && (sum2 == 3);
+  test.status = (sum1 == 3) && (sum2 == 3);  // Assign to Status flag
   test();
 }
 ```
 
 ## Exception Testing
-If you would like to check that a function threw a certain type of exception, make use of the template method ex.
+If you would like to check that a function threw a certain type of exception, make use of the template method TestRunner::ex().
 
 ```
 TestRunner::ex<ExceptionType>( Fn, boolean );
@@ -122,6 +133,50 @@ When the example code is changed to fail mode, the output will now look like thi
 
 ![Failing Test Images](https://bytebucket.org/rajinder_yadav/micro_test/raw/1eb87ebe4969e3acb04e206a2bc03c85ee28d714/fails-only.png)
 
-Find test examples inside **main.cpp**.
+## Test Fixtures
+A test fixture is something that must be prepared and ready before a test block is executed. We can do this ourself, but it would become repetitive and bloat our test code unnecessarily. This is where a test fixture comes in and is optional, since more test cases can be performed about a fixture.
 
-If you like this please share it with others :-) and send me some love!!!
+A fixture will have 2 parts stages:
+
+1. A setup stage were code is executed to prepares test artifacts.
+1. A cleanup stage were the setup artifacts are destroyed.
+
+To declare fixtures, make use of the call **TestRunner::fixture( SetupFunc, CleanupFunc )**.
+
+```C++
+test.fixture(
+   [] // Setup
+   {
+      // Put the setup code here.
+   },
+   [] // Cleanup
+   {
+      // Put the cleanup code here.
+   } );
+```
+
+## Removing Test Fixture
+When you no longer have need for a fixture, to remove it, make the following call.
+
+```C++
+test.fixture();
+```
+
+## Test Suites
+To make use of test suites, it's as simple as separating each test suite in it's own test file. You've already seen how easy it's to create a test project. Just do the same with a new file to group your test as you see fit.
+
+## Building Nodes
+The Micro Test framework can be used to test C/C++ code, however you will require a C++11 or later compiler to build the Micro Test code, then use existing C or C++ code to test.
+
+## Sample Code
+Find test examples inside **main.cpp**, it will have the most up to date coding examples.
+
+If you like Micro Test, please share it with others :-) and shoot me an email to let me know you found it very helpful for your next project!
+
+**Rajinder Yadav**
+
+**Labs DevMentor.org Corp.**
+
+**Email:** rajinder.yadav@hotmail.com
+
+Happy Coding :-)
