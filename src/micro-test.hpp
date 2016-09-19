@@ -29,7 +29,7 @@ using std::clog;
 
 namespace MicroTest
 {
-   const double version{1.4};
+   const double version{1.5};
 
    class TestRunner
    {
