@@ -151,31 +151,25 @@ When you see that a function is required for a MicroTest::TestRunner method, you
 Best practice is to use a lambda right at the test block, this keeps all the test code in the same place. It makes for improved readability and ease of code change because you avoid the need to hunt down external function code.
 
 ## Exception Testing
-If you would like to check that a function threw a certain type of exception, make use of the template method TestRunner::ex().
-
-```
-TestRunner::ex<ExceptionType>( Fn, boolean );
-
-Function signature of Fn is: void func()
-In C++11 Fn should be using a lambda function.
-```
-The exception type is declared as ExceptionType.
-
-The first argument will be a lambda function, inside it make other calls or perform operations that could throw an exception.
-
-The second argument is a boolean flag indicating if an exception was expected.
-
-* true  - Indicates an exception should get thrown.
-* false - Indicates an exception will not be thrown.
-
+If you would like to check that a function threw a certain type of exception (or not), make use of these template helper function.
 
 ```C++
-test = "Description of testing being performed";
+1. TestRunner::ex<ExceptionType>( Fn );
+2. TestRunner::ex_not<ExceptionType>( Fn );
+3. TestRunner::ex_any( Fn );
+4. TestRunner::ex_none( Fn );
+
+Function signature of Fn is: void func()
+In C++11 for Fn use a lambda function.
+```
+
+```C++
+test = "Check exception gets thrown!";
 {
-  test.ex<int>( [] {
-   // Place test code that could throw an exception inside lambda block.
-    throw(1);
-  }, <true_or_false> );
+  test.ex<ExceptionFoo>( []
+  {
+     // Code that 'should' throw ExceptionFoo.
+  } );
 }
 ```
 
