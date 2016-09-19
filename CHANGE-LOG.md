@@ -2,7 +2,7 @@
 
 ## Version 1.5
 
-Breaking changes
+Breaking changes.
 * Status flag removed.
 
 New test helper template functions.
