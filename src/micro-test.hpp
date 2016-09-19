@@ -255,12 +255,12 @@ namespace MicroTest
       }
       // Test exception T is never thrown.
       template <typename T>
-      void no_ex( lambda_t fn )
+      void ex_not( lambda_t fn )
       {
          exception<T>( fn, false );
       }
       // Test any exception is thrown.
-      void any_ex( lambda_t fn )
+      void ex_any( lambda_t fn )
       {
          Fixture fix( this );
 
@@ -274,8 +274,8 @@ namespace MicroTest
             Pass();
          }
       }
-      // Test no exception is ever thrown.
-      void any_no_ex( lambda_t fn )
+      // Test no exception is ever thrown of any type.
+      void ex_none( lambda_t fn )
       {
          Fixture fix( this );
 
