@@ -29,89 +29,100 @@ using std::clog;
 
 namespace MicroTest
 {
-   const std::string version( "Micro Test v1.4" );
+   const double version{1.4};
 
    class TestRunner
    {
-      typedef std::function<void()> func_t;
+      // RAII fixture helper.
+      class Fixture
+      {
+         TestRunner * tr;
+      public:
+
+         Fixture( TestRunner * p ): tr( p )
+         {
+            if ( tr->setup )
+            {
+               tr->setup();
+            }
+         }
+         ~Fixture()
+         {
+            if ( tr->cleanup )
+            {
+               tr->cleanup();
+            }
+         }
+      };
+
+      typedef std::function<void()> lambda_t;
 
       // Test success & fail counts
-      int pass;
-      int fail;
+      uint32_t pass;
+      uint32_t fail;
 
       bool fail_mode;
 
-      func_t setup;
-      func_t cleanup;
+      lambda_t setup;
+      lambda_t cleanup;
 
       // To capture cerr output
       std::stringstream err_out;
       std::streambuf * cerr_buf;
 
-      std::string test;
+      std::string test_description;
 
-   public:
-      // Success flag of current test.
-      bool status;
-
-      explicit TestRunner( bool enable_fail_mode = false )
-         : pass( 0 )
-         , fail( 0 )
-         , fail_mode( enable_fail_mode )
-         , setup{}
-         , cleanup{}
+      void Pass()
       {
-         // Capture cerr, don't want test output polluted.
-         cerr_buf = std::cerr.rdbuf( err_out.rdbuf() );
-         clog << "\no===================================o\n"
-              << "| " << version << " for C++           |\n"
-              << "|                                   |\n"
-              << "| Running Tests                     |\n"
-              << "o===================================o\n"
+         ++pass;
+
+         if ( ! fail_mode )
+         {
+            clog << char( 0x1B )
+                 << "[32mPass: "
+                 << test_description
+                 << char( 0x1B )
+                 << "[37m"
+                 << "\n"
+                 << std::flush;
+         }
+      }
+
+      void Fail()
+      {
+         ++fail;
+         clog << char( 0x1B )
+              << "[31mFail: "
+              << test_description
+              << char( 0x1B )
+              << "[37m"
+              << "\n"
               << std::flush;
       }
 
-      virtual ~TestRunner()
+      void check( bool status )
       {
-         clog << "==============================================\n";
-         clog << "Test Summary: Tests(" << pass + fail << ") "
-              << "Passed(" << pass << ") "
-              << "Failed(" << fail << ")\n\n";
-         // Restore cerr
-         std::cerr.rdbuf( cerr_buf );
-      }
+         Fixture fix( this );
 
-      void operator = ( const std::string & s )
-      {
-         test = s;
-      }
+         if ( status )
+         {
+            Pass();
+         }
+         else
+         {
+            Fail();
+         }
 
-      void operator()( bool f )
-      {
-         status = f;
-         check();
-      }
-
-      void operator()()
-      {
-         check();
-      }
-
-      void fixture( func_t init = nullptr, func_t term = nullptr )
-      {
-         setup = init;
-         cleanup = term;
+         // Clear error buffer & error states
+         err_out.str( "" );
+         err_out.clear();
       }
 
       template <typename TEX>
-      void ex( func_t fn, bool exception_expected = true )
+      void exception( lambda_t fn, bool exception_expected = true )
       {
          bool exception_thrown = false;
-
-         if ( setup )
-         {
-            setup();
-         }
+         Fixture fix( this );
 
          try
          {
@@ -131,22 +142,11 @@ namespace MicroTest
          if ( ( exception_thrown && exception_expected ) ||
               ( !exception_thrown && !exception_expected ) )
          {
-            ++pass;
-
-            if ( ! fail_mode )
-            {
-               clog << char( 0x1B ) << "[32mPass: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
-            }
+            Pass();
          }
          else
          {
-            ++fail;
-            clog << char( 0x1B ) << "[31mFail: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
-         }
-
-         if ( cleanup )
-         {
-            cleanup();
+            Fail();
          }
 
          // Clear error buffer & error states
@@ -154,37 +154,140 @@ namespace MicroTest
          err_out.clear();
       }
 
-      void check()
+   public:
+
+      explicit TestRunner( bool enable_fail_mode = false )
+         : pass{}
+         , fail{}
+         , fail_mode( enable_fail_mode )
+         , setup{}
+         , cleanup{}
       {
-         if ( setup )
-         {
-            setup();
-         }
+         // Capture cerr, don't want test output polluted.
+         cerr_buf = std::cerr.rdbuf( err_out.rdbuf() );
+         clog << "\no===================================o\n"
+              << "| Micro Test v" << version << " for C++           |\n"
+              << "|                                   |\n"
+              << "| Running Tests                     |\n"
+              << "o===================================o\n"
+              << std::flush;
+      }
 
-         if ( status )
-         {
-            ++pass;
+      virtual ~TestRunner()
+      {
+         clog << "==============================================\n";
+         clog << "Test Summary: Tests(" << pass + fail << ") "
+              << "Passed(" << pass << ") "
+              << "Failed(" << fail << ")\n\n";
+         // Restore cerr
+         std::cerr.rdbuf( cerr_buf );
+      }
 
-            if ( ! fail_mode )
-            {
-               clog << char( 0x1B ) << "[32mPass: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
-            }
-         }
-         else
-         {
-            ++fail;
-            clog << char( 0x1B ) << "[31mFail: " << test << char( 0x1B ) << "[37m" << "\n" << std::flush;
-         }
+      void operator = ( const std::string & message )
+      {
+         test_description = message;
+      }
 
-         if ( cleanup )
-         {
-            cleanup();
-         }
+      void operator()( bool flag )
+      {
+         check( flag );
+      }
 
-         // Clear error buffer & error states
-         err_out.str( "" );
-         err_out.clear();
-         status = false;
+      void fixture( lambda_t init = nullptr, lambda_t term = nullptr )
+      {
+         setup = init;
+         cleanup = term;
+      }
+
+      /**
+       * Equality Test Helper
+       */
+      template <typename T>
+      void t( T v )
+      {
+         check( v == true );
+      }
+      template <typename T>
+      void f( T v )
+      {
+         check( v == false );
+      }
+      template <typename T>
+      void eq( T l, T r )
+      {
+         check( l == r );
+      }
+      template <typename T>
+      void ne( T l, T r )
+      {
+         check( l != r );
+      }
+      template <typename T>
+      void lt( T l, T r )
+      {
+         check( l < r );
+      }
+      template <typename T>
+      void gt( T l, T r )
+      {
+         check( l > r );
+      }
+      template <typename T>
+      void lte( T l, T r )
+      {
+         check( l <= r );
+      }
+      template <typename T>
+      void gte( T l, T r )
+      {
+         check( l >= r );
+      }
+
+      /**
+       * Exception Test Helper
+       */
+
+      // Test exception T is thrown.
+      template <typename T>
+      void ex( lambda_t fn )
+      {
+         exception<T>( fn, true );
+      }
+      // Test exception T is never thrown.
+      template <typename T>
+      void no_ex( lambda_t fn )
+      {
+         exception<T>( fn, false );
+      }
+      // Test any exception is thrown.
+      void any_ex( lambda_t fn )
+      {
+         Fixture fix( this );
+
+         try
+         {
+            fn();
+            Fail();
+         }
+         catch ( ... )
+         {
+            Pass();
+         }
+      }
+      // Test no exception is ever thrown.
+      void any_no_ex( lambda_t fn )
+      {
+         Fixture fix( this );
+
+         try
+         {
+            fn();
+            Pass();
+         }
+         catch ( ... )
+         {
+            Fail();
+         }
       }
    };
 
