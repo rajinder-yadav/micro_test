@@ -25,20 +25,26 @@ Write beautiful easy to read test code with Micro Test. To get going, all you ne
       // Alternatively use test helper.
       test.eq( Add( 5, -3 ), 2 );
    }
-   test = "Exception type int not thrown";
+   test = "Any type of exception throw";
    {
-      // An exception could get thrown, we're testing it will not!
-      test.no_ex<int>( []
+      test.ex_any( []
       {
-         // Code that might throw an exception.
+         throw ( "BOOM!" );
       } );
    }
-   test = "Check custom exception is thrown";
+   test = "Check exception TestException is thrown";
    {
-      // Expecting an exception of type TestException.
       test.ex<TestException>( []
       {
          throw TestException();
+      } );
+   }
+   test = "Exception type int not thrown";
+   {
+      // An exception type int could get thrown, we're testing it will not!
+      test.ex_not<int>( []
+      {
+         // Code that might throw an exception of type int.
       } );
    }
 ```
@@ -184,7 +190,7 @@ To enable fail mode testing, pass **true** to the test object constructor.
 MicroTest::TestRunner test(true);
 ```
 
-When the example code is changed to fail mode, the output will now look like this.
+When switched to fail mode, the output will now look like this.
 
 ![Failing Test Images](https://bytebucket.org/rajinder_yadav/micro_test/raw/ec86091c1170fdedb104b6af2d1edb63acc16f4c/fails-only.png)
 
