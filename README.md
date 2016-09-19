@@ -12,10 +12,39 @@ Micro Test is blazing fast, an order of magititue faster than other C++ test fra
 ## Beautiful Test Code
 Write beautiful easy to read test code with Micro Test. To get going, all you need is a single include. In fact the entire framework is contained inside a single file less than 100 lines of code!
 
-![Test Code Image](https://bytebucket.org/rajinder_yadav/micro_test/raw/8a01f13d300520132bd7062ae28acac6d709878f/micro-test.png)
+```C++
+   MicroTest::TestRunner test;
+   test = "Adding negated values should return zero";
+   {
+      // Pass boolean value to test.
+      // Test true condition.
+      test( Add( 5, -5 ) == 0 );
+   }
+   test = "Add values 5 and -3, return sum of 2";
+   {
+      // Alternatively use test helper.
+      test.eq( Add( 5, -3 ), 2 );
+   }
+   test = "Exception type int not thrown";
+   {
+      // An exception could get thrown, we're testing it will not!
+      test.no_ex<int>( []
+      {
+         // Code that might throw an exception.
+      } );
+   }
+   test = "Check custom exception is thrown";
+   {
+      // Expecting an exception of type TestException.
+      test.ex<TestException>( []
+      {
+         throw TestException();
+      } );
+   }
+```
 
 ## Beautiful Test Summary
-![Test Summary Image](https://bytebucket.org/rajinder_yadav/micro_test/raw/e264a3fb0022dd4d5b841f08a7292901e9aa0dc1/test-run.png)
+![Test Summary Image](https://bytebucket.org/rajinder_yadav/micro_test/raw/ec86091c1170fdedb104b6af2d1edb63acc16f4c/test-summary.png)
 
 ## Capturing Test Output
 
@@ -157,7 +186,7 @@ MicroTest::TestRunner test(true);
 
 When the example code is changed to fail mode, the output will now look like this.
 
-![Failing Test Images](https://bytebucket.org/rajinder_yadav/micro_test/raw/1eb87ebe4969e3acb04e206a2bc03c85ee28d714/fails-only.png)
+![Failing Test Images](https://bytebucket.org/rajinder_yadav/micro_test/raw/ec86091c1170fdedb104b6af2d1edb63acc16f4c/fails-only.png)
 
 ## Test Fixtures
 A test fixture is something that must be prepared and ready before a test block is executed. We can do this ourself, but it would become repetitive and bloat our test code unnecessarily. This is where a test fixture comes in and is optional, since more test cases can be performed about a fixture.
