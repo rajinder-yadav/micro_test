@@ -55,24 +55,19 @@ int main( int argc, char * argv[] )
    {
       test.fixture(
          [] // Setup
-         {
-            std::clog << "Setting up fixture.\n" << std::flush;
-         },
-         [] // Cleanup
-         {
-            std::clog << "Cleaning up fixture.\n" << std::flush;
-         } );
+      {
+         std::clog << "Setting up fixture.\n" << std::flush;
+      },
+      [] // Cleanup
+      {
+         std::clog << "Cleaning up fixture.\n" << std::flush;
+      } );
    }
 
    test = "This will Pass";
    {
-      // Set test boolean success status.
-      // true  for Pass
-      // false for Fail
-      test.status = true;
-
       // Show & collect test result.
-      test();
+      test( true );
    }
    test = "This will Fail";
    {
@@ -84,12 +79,13 @@ int main( int argc, char * argv[] )
       int sum1 = Add( 1, 2 );
       int sum2 = Add( 5, -2 );
 
-      test.status = ( sum1 == 3 ) && ( sum2 == 3 );
-      test();
+      bool status = (sum1 == 3 ) && ( sum2 == 3 );
+      test( status );
    }
    test = "Add values 5 and -3, return sum of 2";
    {
-      test( Add( 5, -3 ) == 2 );
+      //test( Add( 5, -3 ) == 2 );
+      test.eq( Add( 5, -3 ), 2 );
    }
    test = "Checking an exception is thrown (passing test)";
    {
@@ -110,10 +106,10 @@ int main( int argc, char * argv[] )
    test = "Exception not expected (passing test)";
    {
       // An exception could get thrown, we're testing it will not!
-      test.ex<int>( []
+      test.no_ex<int>( []
       {
          // Call methods that might throw an exception here.
-      }, false );
+      } );
    }
    test = "Check custom exception is thrown";
    {
@@ -129,6 +125,20 @@ int main( int argc, char * argv[] )
       test.ex<TestException>( []
       {
          throw ( 12 );
+      } );
+   }
+   test = "Any type of exception throw";
+   {
+      test.any_ex( []
+      {
+         throw ( "BOOM!" );
+      } );
+   }
+   test = "Any type of exception not throw";
+   {
+      test.any_no_ex( []
+      {
+         //throw("BOOM!");
       } );
    }
    return 0;
