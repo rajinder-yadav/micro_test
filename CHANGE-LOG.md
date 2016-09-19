@@ -5,7 +5,8 @@
 Breaking changes
 * Status flag removed.
 
-Add new test helper template functions
+New test helper template functions.
+
 1. Equality Test Helpers
     * t - Test for true
     * f - Test for false
