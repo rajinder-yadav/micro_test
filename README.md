@@ -12,7 +12,7 @@ Micro Test is blazing fast, an order of magititue faster than other C++ test fra
 ## Beautiful Test Code
 Write beautiful easy to read test code with Micro Test. To get going, all you need is a single include. In fact the entire framework is contained inside a single file less than 100 lines of code!
 
-![Test Code Image](https://bytebucket.org/rajinder_yadav/micro_test/raw/a08f211a5ffd761fe22a6eaae6361ec7f3d28317/micro-test.png)
+![Test Code Image](https://bytebucket.org/rajinder_yadav/micro_test/raw/8a01f13d300520132bd7062ae28acac6d709878f/micro-test.png)
 
 ## Beautiful Test Summary
 ![Test Summary Image](https://bytebucket.org/rajinder_yadav/micro_test/raw/e264a3fb0022dd4d5b841f08a7292901e9aa0dc1/test-run.png)
@@ -228,4 +228,4 @@ If you like Micro Test, please share it with others :-) and shoot me an email to
 
 **Email:** info@devmentor.org
 
-Happy Coding :-)
+Happy Safe Coding :-)
