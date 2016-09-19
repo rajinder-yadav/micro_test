@@ -2,6 +2,10 @@
 
 Testing just got a whole lot simpler, faster and fun to get done, you have no more excuse not to test! I wrote it because I believe writing tests and setting up a test project should be simple and painless.
 
+### Group - Getting Help
+
+If you have questions or suggestions for improvements, join the MicroTest community on Gitter [MicroTest Group](https://gitter.im/devmentor-org/microtest)
+
 ## Super Fast Execution
 Micro Test is blazing fast, an order of magititue faster than other C++ test frameworks, which I consider unnecessarily large and complex.
 
@@ -21,7 +25,9 @@ You can redirect the test output to a file using the following command on Linux:
 ```
 
 ## KISS Principle
-Micro Test is a very small and lean unit test framework that is both easy and simple to use. The framework was intentionally kept simple, feel free to extend it as you see fit. There is no immediate plan to build it out further. This project exists for those who need something minimal to get going with testing, without the headache of complexity!
+Micro Test is a very small and lean unit test framework that is easy to learn and simple to setup. The framework has been intentionally kept simple, however I am aways open to feedback and suggestions for improvement here: [MicroTest Group on Gitter](https://gitter.im/devmentor-org/microtest)
+
+This project exists for those who need something minimal to get going with testing, without the headache of complexity!
 
 Here are the following steps you need to start testing with 'Micro Test'.
 
