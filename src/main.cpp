@@ -64,62 +64,56 @@ int main( int argc, char * argv[] )
       } );
    }
 
-   test = "This will Pass";
+   test = "Adding negated values should return zero";
    {
-      // Show & collect test result.
-      test( true );
+      // Pass boolean value to test.
+      // Test true condition.
+      test( Add( 5, -5 ) == 0 );
    }
-   test = "This will Fail";
+   test = "Add values 5 and -3, return sum of 2";
    {
-      // Alternatively pass boolean success status.
-      test( false );
+      // Alternatively use test helper.
+      test.eq( Add( 5, -3 ), 2 );
    }
    test = "Add positive and negative values";
    {
       int sum1 = Add( 1, 2 );
       int sum2 = Add( 5, -2 );
 
-      bool status = (sum1 == 3 ) && ( sum2 == 3 );
+      bool status = ( sum1 == 3 ) && ( sum2 == 3 );
       test( status );
    }
-   test = "Add values 5 and -3, return sum of 2";
+   test = "Check exception of type 'int' is thrown (passing test)";
    {
-      //test( Add( 5, -3 ) == 2 );
-      test.eq( Add( 5, -3 ), 2 );
-   }
-   test = "Checking an exception is thrown (passing test)";
-   {
-      // By default we expect an exception to get thrown.
       test.ex<int>( []
       {
          throw ( 1 );
       } );
    }
-   test = "Expecting and exception, but failed to get one (failing test)";
+   test = "Check exception of type 'int' is thrown (failing test)";
    {
       // We're expecting an exception, none is thrown, so test fails.
       test.ex<int>( []
       {
-         // Call methods that might throw an exception here.
+         // Code that might throw an exception of type int.
       } );
    }
-   test = "Exception not expected (passing test)";
+   test = "Exception type int not thrown (passing test)";
    {
-      // An exception could get thrown, we're testing it will not!
-      test.no_ex<int>( []
+      // An exception type int could get thrown, we're testing it will not!
+      test.ex_not<int>( []
       {
-         // Call methods that might throw an exception here.
+         // Code that might throw an exception of type int.
       } );
    }
-   test = "Check custom exception is thrown";
+   test = "Check exception TestException is thrown";
    {
-      // Expecting an exception of type TestException to be thrown.
       test.ex<TestException>( []
       {
          throw TestException();
       } );
    }
-   test = "Check if correct exception is thrown";
+   test = "Check if correct exception is thrown (failing test)";
    {
       // Expecting an exception of type TestException to be thrown.
       test.ex<TestException>( []
@@ -129,14 +123,14 @@ int main( int argc, char * argv[] )
    }
    test = "Any type of exception throw";
    {
-      test.any_ex( []
+      test.ex_any( []
       {
          throw ( "BOOM!" );
       } );
    }
    test = "Any type of exception not throw";
    {
-      test.any_no_ex( []
+      test.ex_none( []
       {
          //throw("BOOM!");
       } );
