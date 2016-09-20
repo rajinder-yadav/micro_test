@@ -29,7 +29,8 @@ using std::clog;
 
 namespace MicroTest
 {
-   const double version{1.5};
+   const std::string VERSION("1.5.1");
+
    #define setup_fixture [&]
    #define cleanup_fixture [&]
 
@@ -163,11 +164,11 @@ namespace MicroTest
       {
          // Capture cerr, don't want test output polluted.
          cerr_buf = std::cerr.rdbuf( err_out.rdbuf() );
-         clog << "\no===================================o\n"
-              << "| Micro Test v" << version << " for C++           |\n"
-              << "|                                   |\n"
-              << "| Running Tests                     |\n"
-              << "o===================================o\n"
+         clog << "\no=================================================o\n"
+              << "| Micro Test v" << VERSION << " for C/C++                     |\n"
+              << "|                                                 |\n"
+              << "| https://bitbucket.org/rajinder_yadav/micro_test |\n"
+              << "o=================================================o\n"
               << std::flush;
       }
 
