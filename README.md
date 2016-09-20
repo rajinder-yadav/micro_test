@@ -211,7 +211,6 @@ char * buffer = nullptr;
 test.fixture(
    setup_fixture
    {
-      // Put the setup code here.
       mq.create("test-exchange");
       mq.connect("test-topic");
       buffer = new char[1000];
@@ -219,7 +218,6 @@ test.fixture(
    },
    cleanup_fixture
    {
-      // Put the cleanup code here.
       mq.disconnect();
       mq.close();
       delete[] buffer;
@@ -227,9 +225,23 @@ test.fixture(
    } );
 ```
 
-## Important points to notice of when using a fixture.
+## Fixture Usage Details
 1. Variables must be declared before a fixture declaration.
 1. Varabiles must be visible to the test using the fixture.
+
+If you're familiar and comfortable with C++11 lambda, you can use '[&]' to replace both 'setup_fixture' and 'cleanup_fixture', both of which are defines to it.
+
+```C++
+test.fixture(
+   [&]
+   {
+      // Put setup code here.
+   },
+   [&]
+   {
+      // Put cleanup code here.
+   } );
+```
 
 ## Removing Test Fixture
 When you no longer have need for a fixture, to remove it, make the following call.
