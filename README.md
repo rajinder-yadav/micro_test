@@ -189,26 +189,47 @@ When switched to fail mode, the output will now look like this.
 ![Failing Test Images](https://bytebucket.org/rajinder_yadav/micro_test/raw/ec86091c1170fdedb104b6af2d1edb63acc16f4c/fails-only.png)
 
 ## Test Fixtures
-A test fixture is something that must be prepared and ready before a test block is executed. We can do this ourself, but it would become repetitive and bloat our test code unnecessarily. This is where a test fixture comes in and is optional, since more test cases can be performed about a fixture.
+A test fixture is something that must be prepared and ready before a test block is executed. We can do this ourself, but it would become repetitive and bloat our test code unnecessarily. This is where a test fixture comes.
 
-A fixture will have 2 parts stages:
+A fixture is optional, since most test cases can be performed without a fixture.
+
+A fixture will have two stage:
 
 1. A setup stage were code is executed to prepares test artifacts.
 1. A cleanup stage were the setup artifacts are destroyed.
 
-To declare fixtures, make use of the call **TestRunner::fixture( SetupFunc, CleanupFunc )**.
+To specify fixtures, make use of the call **TestRunner::fixture( SetupFunc, CleanupFunc )**.
+
+A fixture is declared below, within each function block you provide
 
 ```C++
+// Declare variables to be used by the fixture first.
+// Variables must be accessible by the tests and fixture functions.
+MessageQueue mq;
+char * buffer = nullptr;
+
 test.fixture(
-   [] // Setup
+   setup_fixture
    {
       // Put the setup code here.
+      mq.create("test-exchange");
+      mq.connect("test-topic");
+      buffer = new char[1000];
+      std::memset(buffer, 0, sizeof buffer);
    },
-   [] // Cleanup
+   cleanup_fixture
    {
       // Put the cleanup code here.
+      mq.disconnect();
+      mq.close();
+      delete[] buffer;
+      buffer = nullptr;
    } );
 ```
+
+## Important points to notice of when using a fixture.
+1. Variables must be declared before a fixture declaration.
+1. Varabiles must be visible to the test using the fixture.
 
 ## Removing Test Fixture
 When you no longer have need for a fixture, to remove it, make the following call.
