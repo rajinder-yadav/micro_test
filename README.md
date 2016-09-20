@@ -1,6 +1,6 @@
 # Micro Test For Testing C++ Code
 
-Testing just got a whole lot simpler, faster and fun to get done, you have no more excuse not to test! I wrote it because I believe writing tests and setting up a test project should be simple and painless.
+Testing just got a whole lot simpler, faster and fun to get done, you have no more excuse not to test! I wrote MicroTest because I believe writing tests and setting up a test project should be simple and painless.
 
 ### Group - Getting Help
 
@@ -50,6 +50,8 @@ Write beautiful easy to read test code with Micro Test. To get going, all you ne
 ```
 
 ## Beautiful Test Summary
+This following test output was taken from the sample code provided.
+
 ![Test Summary Image](https://bytebucket.org/rajinder_yadav/micro_test/raw/ec86091c1170fdedb104b6af2d1edb63acc16f4c/test-summary.png)
 
 ## Capturing Test Output
@@ -88,11 +90,11 @@ MicroTest::TestRunner test;
 We will make use of the **test** object in steps 1 and 3 below!
 
 ## Test Block
-A Test block is a single test you want to perform against a API (function). A test block always have these 3 items:
+A Test block is a single test you want to perform against a API (function). A 'unit' test is comprised of 3 items:
 
 1. Test description.
-1. Test block with you test code.
-1. Call to check the test result.
+1. Test block with the test code.
+1. Call test validating method.
 
 ```C++
 test = "Description of testing being performed";  // Step 1
@@ -117,18 +119,33 @@ test = "Add values of 1 and 2, return sum of 3";
 
 Above, in the test call, a boolean value is passed to indicate success or failure of the test execution.
 
-## Using Status Flag
-Alternatively you can assign the test success value to the **'status'** boolean member as the following code demonstrates. You are still required to call **'test()'** at the end.
+## Equality Test Helpers
+There following test helpers are method of MicroTest::TestRunner.
 
-```C++
-test = "Add positive and negative values";
-{
-  int sum1 = Add( 1, 2 );
-  int sum2 = Add( 5, -2 );
-  test.status = (sum1 == 3) && (sum2 == 3);  // Assign to Status flag
-  test();
-}
-```
+|Method|Operation|Usage|Description|
+|------|---------|-----|-----------|
+|t( r )|Truthy|test.t( r )|Test result is true.|
+|f( r )|Falsely|test.f( r )|Test result is false.|
+|( r )|Pass/Fail|test( a == b )|true is pass, false is fail.|
+|eq( a, b )|a == b|test.eq( 12, a )|Test values are equal.|
+|ne( a, b )|a != b|test.ne( b, -5 )|Test values are not equal.|
+|lt( a, b )|a < b|test.lt( a, b )|Test less than.|
+|gt( a, b )|a > b|test.gt( a, b )|The greater than.|
+|lte( a, b )|a <= b|test.lte( a, b )|Test less than or equal.|
+|gte( a, b )|a >= b|test.gte( a , b)|Test greater than or equal.|
+
+## Exception Test Helpers
+
+More details on exception testing is provided under section 'Exception Testing'. See also example at top on usage as well as sample provided code.
+
+|Method|Usage|Description|
+|------|-----|-----------|
+|ex\<T\>|test.ex\<MyException\>(lambda)|Check exception of type T is thrown.|
+|ex_not\<T\>|test.ex_not\<int\>(lambda)|Check exception of type T not thrown.|
+|ex_any|test.ex_any(lambda)|Check any exception is thrown.|
+|ex_none|test.ex_none(lambda)|Check no exception is thrown.|
+
+Below is a discussion on using a lambda function as it relates to exception testing and fixtures.
 
 ## Lamdba Function
 A lambda function is an anonymous function. Currently it is used when testing for exception and when using a fixture. If you don't need either, you can skip this section.
