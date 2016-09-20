@@ -54,11 +54,11 @@ int main( int argc, char * argv[] )
    if ( enable_fixture )
    {
       test.fixture(
-         [] // Setup
+      setup_fixture
       {
          std::clog << "Setting up fixture.\n" << std::flush;
       },
-      [] // Cleanup
+      cleanup_fixture
       {
          std::clog << "Cleaning up fixture.\n" << std::flush;
       } );
