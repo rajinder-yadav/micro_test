@@ -30,6 +30,8 @@ using std::clog;
 namespace MicroTest
 {
    const double version{1.5};
+   #define setup_fixture [&]
+   #define cleanup_fixture [&]
 
    class TestRunner
    {
@@ -41,10 +43,6 @@ namespace MicroTest
 
          Fixture( TestRunner * p ): tr( p )
          {
-            if ( tr->setup )
-            {
-               tr->setup();
-            }
          }
          ~Fixture()
          {
@@ -185,6 +183,11 @@ namespace MicroTest
 
       void operator = ( const std::string & message )
       {
+         if ( setup )
+         {
+            setup();
+         }
+
          test_description = message;
       }
 
