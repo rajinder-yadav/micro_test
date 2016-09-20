@@ -1,5 +1,19 @@
 # Change Log
 
+## Version 1.5.1
+
+Bug Fix: Critical Fixture bug fixed.
+
+Added lambda defines for Fixture.
+
+* setup_fixture
+* cleanup_fixture
+
+Added test coverage for all test checkers, code placed under new folder src/test.
+
+MicroTest framework file moved to new folder src/include.
+
+---
 ## Version 1.5
 
 **Breaking changes.**
