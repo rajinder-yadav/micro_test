@@ -1,5 +1,21 @@
 # Change Log
 
+## Version 1.6.0
+
+Enhancement, added new helper TestRunner::all(...) for compound testing.
+
+```C++
+test = "Add 3 values 1+2, -5+3, 12+(-12)";
+{
+   // Better way to perform compound tests.
+   test.all(
+      Add( 1, 2 ) == 3,
+      Add( 5, -3 ) == 2,
+      Add( 12, -12 ) == 0
+   );
+}
+```
+---
 ## Version 1.5.1
 
 Bug Fix: Critical Fixture bug fixed.
