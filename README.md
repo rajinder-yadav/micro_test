@@ -145,6 +145,27 @@ There following test helpers are method of MicroTest::TestRunner.
 |le( a, b )|a <= b|test.le( a, b )|Test less than or equal.|
 |ge( a, b )|a >= b|test.ge( a , b)|Test greater than or equal.|
 
+## String Comparison
+Since strings in C++ can come in many forms:
+
+1. Literal string in quotes.
+1. String in a char array.
+1. String as a pointer to char.
+1. C++ std::string object.
+
+When comparing strings, make use of TestRunner::eq and TestRunner::ne helpers.
+
+```C++
+const char * s1 = "Micro Test makes testing fun!";
+std::string s2( "Micro Test makes testing fun!" );
+char s3[100] = "Micro Test makes testing fun!";
+
+test.eq( s1, s2 );
+test.eq( s1, "Micro Test make testing fun!" );
+test.eq( s1, s3 );
+test.eq( s2, s3 );
+```
+
 ## Compound Tests
 You may have a need to run a battery of tests in a single test block and make sure they all pass, there is a helper to make it simple.
 
