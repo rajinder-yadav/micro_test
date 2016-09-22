@@ -1,4 +1,11 @@
 # Change Log
+
+## Version 1.6.2
+
+Updated Equality test helpers TestRunner::eq and TestRunner::ne for improved string comparison support.
+
+---
+
 ## Version 1.6.1
 Breaking changes: Equality test helpers lte, gte changed.
 

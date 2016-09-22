@@ -48,6 +48,10 @@ int main( int argc, char * argv[] )
    Person * p2;
    Person * p3;
 
+
+   //=========================
+   // Test Fixture
+   //=========================
    test.fixture(
       setup_fixture
    {
@@ -83,6 +87,9 @@ int main( int argc, char * argv[] )
    test.fixture();
 
 
+   //=========================
+   // Test Equality
+   //=========================
    test = "Test boolean";
    {
       test( true );
@@ -119,6 +126,10 @@ int main( int argc, char * argv[] )
    {
       test.ge( 12, 12 );
    }
+
+   //=========================
+   // Test Exceptions
+   //=========================
    test = "Exception type double thrown";
    {
       test.ex<double>( []
@@ -156,6 +167,9 @@ int main( int argc, char * argv[] )
       } );
    }
 
+   //=========================
+   // Test Compounds
+   //=========================
    test = "Compund statements first fails (should fail)";
    {
       test.all( false, true, true );
@@ -171,6 +185,91 @@ int main( int argc, char * argv[] )
    test = "Compund statements all pass";
    {
       test.all( true, true, true );
+   }
+
+   //=========================
+   // Test Strings
+   //=========================
+   test = "Two C array string comparison";
+   {
+      const char a1[] = "Sun!";
+      const char a2[] = "Sun!";
+      test.eq( a1, a2 );
+   }
+   test = "Two C pointer string comparison";
+   {
+      const char * a1 = "Sun!";
+      const char * a2 = "Sun!";
+      test.eq( a1, a2 );
+   }
+   test = "Two C string comparison";
+   {
+      test.eq( "Boat", "Boat" );
+   }
+   test = "C string with std::string comparison";
+   {
+      test.eq( "Boat", std::string( "Boat" ) );
+   }
+   test = "std::string with C string comparison";
+   {
+      test.eq( std::string( "Boat" ), "Boat" );
+   }
+   test = "C pointer string and string comparison";
+   {
+      const char * a1 = "Sun!";
+      test.eq( a1, "Sun!" );
+   }
+   test = "String and C pointer string comparison";
+   {
+      const char * a2 = "Sun!";
+      test.eq( "Sun!", a2 );
+   }
+   test = "Two std::string comparison";
+   {
+      std::string s1( "Elephant" );
+      std::string s2( "Elephant" );
+      test.eq( s1, s2 );
+   }
+
+   test = "Two C array to string comparison";
+   {
+      const char a1[] = "Sun!";
+      const char a2[] = "Moon!";
+      test.ne( a1, a2 );
+   }
+   test = "Two C pointer string comparison";
+   {
+      const char * a1 = "Sun!";
+      const char * a2 = "Moon!";
+      test.ne( a1, a2 );
+   }
+   test = "Two different C string comparison";
+   {
+      test.ne( "Boat", "Goat" );
+   }
+   test = "C string with different std::string comparison";
+   {
+      test.ne( "Boat", std::string( "Goat" ) );
+   }
+   test = "std::string with different C string comparison";
+   {
+      test.ne( std::string( "Boat" ), "Goat" );
+   }
+   test = "C pointer string and different string comparison";
+   {
+      const char * a1 = "Sun!";
+      test.ne( a1, "Moon!" );
+   }
+   test = "String and different C pointer string comparison";
+   {
+      const char * a2 = "Moon!";
+      test.ne( "Sun!", a2 );
+   }
+   test = "Two different std::string comparison";
+   {
+      std::string s1( "Elephant" );
+      std::string s2( "Horse" );
+      test.ne( s1, s2 );
    }
 
 }
