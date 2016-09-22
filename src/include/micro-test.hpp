@@ -30,7 +30,7 @@ using std::clog;
 
 namespace MicroTest
 {
-   const std::string VERSION( "1.6.1" );
+   const std::string VERSION( "1.6.2" );
 
    #define setup_fixture [&]
    #define cleanup_fixture [&]
@@ -264,6 +264,27 @@ namespace MicroTest
 
          check( true );
       }
+
+      /**
+       * String Comparison Helpers
+       */
+      void eq(const std::string & s1, const std::string & s2)
+      {
+         check(s1.compare(s2) == 0);
+      }
+      void eq(const char * s1, const char * s2 )
+      {
+         check( std::string(s1).compare(s2) == 0 );
+      }
+      void ne(const std::string & s1, const std::string & s2)
+      {
+         check(s1.compare(s2) != 0);
+      }
+      void ne(const char * s1, const char * s2 )
+      {
+         check( std::string(s1).compare(s2) != 0 );
+      }
+
 
       /**
           * Exception Test Helper
