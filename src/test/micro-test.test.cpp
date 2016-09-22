@@ -49,7 +49,7 @@ int main( int argc, char * argv[] )
    Person * p3;
 
    test.fixture(
-   setup_fixture
+      setup_fixture
    {
       clog << "Setting up fixture\n" << std::flush;
       p1 = new Person( "Same" );
@@ -154,6 +154,23 @@ int main( int argc, char * argv[] )
       {
          // NOP
       } );
+   }
+
+   test = "Compund statements first fails (should fail)";
+   {
+      test.all( false, true, true );
+   }
+   test = "Compund statements last fails (should fail)";
+   {
+      test.all( true, true, false );
+   }
+   test = "Compund statements all fails (should fail)";
+   {
+      test.all( false, false, false );
+   }
+   test = "Compund statements all pass";
+   {
+      test.all( true, true, true );
    }
 
 }
