@@ -231,10 +231,10 @@ int main( int argc, char * argv[] )
       test.eq( s1, s2 );
    }
 
-   test = "Two C array to string comparison";
+   test = "Two C array string comparison";
    {
       const char a1[] = "Sun!";
-      const char a2[] = "Moon!";
+      const char a2[10] = "Moon!";
       test.ne( a1, a2 );
    }
    test = "Two C pointer string comparison";
