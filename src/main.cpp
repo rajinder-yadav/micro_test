@@ -54,7 +54,7 @@ int main( int argc, char * argv[] )
    if ( enable_fixture )
    {
       test.fixture(
-      setup_fixture
+         setup_fixture
       {
          std::clog << "Setting up fixture.\n" << std::flush;
       },
@@ -83,14 +83,23 @@ int main( int argc, char * argv[] )
       bool status = ( sum1 == 3 ) && ( sum2 == 3 );
       test( status );
    }
-   test = "Check exception of type 'int' is thrown (passing test)";
+   test = "Add 3 values 1+2, -5+3, 12+(-12)";
+   {
+      // Better way to perform compound tests.
+      test.all(
+         Add( 1, 2 ) == 3,
+         Add( 5, -3 ) == 2,
+         Add( 12, -12 ) == 0
+      );
+   }
+   test = "Check exception of type 'int' is thrown";
    {
       test.ex<int>( []
       {
          throw ( 1 );
       } );
    }
-   test = "Check exception of type 'int' is thrown (failing test)";
+   test = "Check exception of type 'int' is thrown (should fail)";
    {
       // We're expecting an exception, none is thrown, so test fails.
       test.ex<int>( []
@@ -98,7 +107,7 @@ int main( int argc, char * argv[] )
          // Code that might throw an exception of type int.
       } );
    }
-   test = "Exception type int not thrown (passing test)";
+   test = "Exception type int not thrown";
    {
       // An exception type int could get thrown, we're testing it will not!
       test.ex_not<int>( []
@@ -113,7 +122,7 @@ int main( int argc, char * argv[] )
          throw TestException();
       } );
    }
-   test = "Check if correct exception is thrown (failing test)";
+   test = "Check if correct exception is thrown (should fail)";
    {
       // Expecting an exception of type TestException to be thrown.
       test.ex<TestException>( []
