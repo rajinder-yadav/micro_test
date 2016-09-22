@@ -62,7 +62,7 @@ You can redirect the test output to a file using the following command on Linux:
 ```
 
 ## KISS Principle
-Micro Test is a very small and lean unit test framework that is easy to learn and simple to setup. The framework has been intentionally kept simple, however I am aways open to feedback and suggestions for improvement here: [MicroTest Group on Gitter](https://gitter.im/devmentor-org/microtest)
+Micro Test is a very small and lean test framework that is easy to learn and simple to setup. The framework has been intentionally kept simple, however I am aways open to feedback and suggestions for improvement here: [MicroTest Group on Gitter](https://gitter.im/devmentor-org/microtest)
 
 This project exists for those who need something minimal to get going with testing, without the headache of complexity!
 
@@ -90,7 +90,7 @@ MicroTest::TestRunner test;
 We will make use of the **test** object in steps 1 and 3 below!
 
 ## Test Block
-A Test block is a single test you want to perform against a API (function). A 'unit' test is comprised of 3 items:
+A Test block is a single test you want to perform against a API (function). A test is comprised of 3 items:
 
 1. Test description.
 1. Test block with the test code.
@@ -133,6 +133,25 @@ There following test helpers are method of MicroTest::TestRunner.
 |gt( a, b )|a > b|test.gt( a, b )|The greater than.|
 |lte( a, b )|a <= b|test.lte( a, b )|Test less than or equal.|
 |gte( a, b )|a >= b|test.gte( a , b)|Test greater than or equal.|
+
+## Compound Tests
+You may have a need to run a battery of tests in a single test block and make sure they all pass, there is a helper to make it simple.
+
+Use **TestRunner::all**(...) for compound testing.
+
+**Test Tip** - This helper is really good for cases when you want to test a call sequence and check the progression of state.
+
+```C++
+test = "Add 3 values 1+2, -5+3, 12+(-12)";
+{
+   // Better way to perform compound tests.
+   test.all(
+      Add( 1, 2 ) == 3,
+      Add( 5, -3 ) == 2,
+      Add( 12, -12 ) == 0
+   );
+}
+```
 
 ## Exception Test Helpers
 
