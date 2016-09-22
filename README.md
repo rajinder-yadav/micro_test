@@ -1,10 +1,21 @@
 # Micro Test For Testing C++ Code
 
-Testing just got a whole lot simpler, faster and fun to get done, you have no more excuse not to test! I wrote MicroTest because I believe writing tests and setting up a test project should be simple and painless.
+Testing just got a whole lot simpler, faster and fun to get done, you have no more excuse not to write test code. If you're like me, you value your time, want to stay productive and most of all be writing solid production code and not having to wrestle a testing framework or test project.
 
-### Group - Getting Help
+I wrote Micro Test because I believe writing tests and setting up a test project should be simple and painless.
 
-If you have questions or suggestions for improvements, join the MicroTest community on Gitter [MicroTest Group](https://gitter.im/devmentor-org/microtest)
+## Just say No and GO!
+
+1. No need to build a separate library.
+1. No linking or DLL hell.
+1. No Complex build process.
+1. No Complex project setup.
+
+If you can make a "Hello World" program in C++, then you can go straight to _running_ with Micro Test.
+
+### Micro Test Community - Getting Help
+
+If you have questions, need help or have suggestions for improvements, join the Micro Test community on Gitter [Micro Test Group](https://gitter.im/devmentor-org/microtest)
 
 ## Super Fast Execution
 Micro Test is blazing fast, an order of magititue faster than other C++ test frameworks, which I consider unnecessarily large and complex.
@@ -62,7 +73,7 @@ You can redirect the test output to a file using the following command on Linux:
 ```
 
 ## KISS Principle
-Micro Test is a very small and lean test framework that is easy to learn and simple to setup. The framework has been intentionally kept simple, however I am aways open to feedback and suggestions for improvement here: [MicroTest Group on Gitter](https://gitter.im/devmentor-org/microtest)
+Micro Test is a very small and lean test framework that is easy to learn and simple to setup. The framework has been intentionally kept simple, however I am aways open to feedback and suggestions for improvement here: [Micro Test Group on Gitter](https://gitter.im/devmentor-org/microtest)
 
 This project exists for those who need something minimal to get going with testing, without the headache of complexity!
 
