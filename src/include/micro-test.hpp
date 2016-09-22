@@ -29,10 +29,10 @@ using std::clog;
 
 namespace MicroTest
 {
-   const std::string VERSION("1.5.1");
+   const std::string VERSION( "1.6.0" );
 
-   #define setup_fixture [&]
-   #define cleanup_fixture [&]
+#define setup_fixture [&]
+#define cleanup_fixture [&]
 
    class TestRunner
    {
@@ -40,9 +40,9 @@ namespace MicroTest
       class Fixture
       {
          TestRunner * tr;
-      public:
 
-         Fixture( TestRunner * p ): tr( p )
+      public:
+         Fixture( TestRunner * p ) : tr( p )
          {
          }
          ~Fixture()
@@ -75,7 +75,7 @@ namespace MicroTest
       {
          ++pass;
 
-         if ( ! fail_mode )
+         if ( !fail_mode )
          {
             clog << char( 0x1B )
                  << "[32mPass: "
@@ -154,7 +154,6 @@ namespace MicroTest
       }
 
    public:
-
       explicit TestRunner( bool enable_fail_mode = false )
          : pass{}
          , fail{}
@@ -182,7 +181,7 @@ namespace MicroTest
          std::cerr.rdbuf( cerr_buf );
       }
 
-      void operator = ( const std::string & message )
+      void operator=( const std::string & message )
       {
          if ( setup )
          {
@@ -204,8 +203,8 @@ namespace MicroTest
       }
 
       /**
-       * Equality Test Helper
-       */
+          * Equality Test Helper
+          */
       template <typename T>
       void t( T v )
       {
@@ -247,9 +246,27 @@ namespace MicroTest
          check( l >= r );
       }
 
+      template <typename... Args>
+      void all( Args... args )
+      {
+         const int size = sizeof...( args );
+         bool status[size] = {args...};
+
+         for ( int i = 0; i < size; ++i )
+         {
+            if ( !status[i] )
+            {
+               check( false );
+               return;
+            }
+         }
+
+         check( true );
+      }
+
       /**
-       * Exception Test Helper
-       */
+          * Exception Test Helper
+          */
 
       // Test exception T is thrown.
       template <typename T>
