@@ -17,22 +17,23 @@
 #ifndef _micro_test_hpp_
 #define _micro_test_hpp_
 
-// Header files to include for Micro Test (Best practice, add to your source).
-//#include <iostream>
-//#include <string>
-//#include <fstream>
-//#include <sstream>
-//#include <functional>
-//#include "micro-test.hpp"
+/** Header files to include for Micro Test (Best practice, add to your source).
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <functional>
+#include "micro-test.hpp"
+*/
 
 using std::clog;
 
 namespace MicroTest
 {
-   const std::string VERSION( "1.6.0" );
+   const std::string VERSION( "1.6.1" );
 
-#define setup_fixture [&]
-#define cleanup_fixture [&]
+   #define setup_fixture [&]
+   #define cleanup_fixture [&]
 
    class TestRunner
    {
@@ -236,12 +237,12 @@ namespace MicroTest
          check( l > r );
       }
       template <typename T>
-      void lte( T l, T r )
+      void le( T l, T r )
       {
          check( l <= r );
       }
       template <typename T>
-      void gte( T l, T r )
+      void ge( T l, T r )
       {
          check( l >= r );
       }

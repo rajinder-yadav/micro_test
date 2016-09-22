@@ -131,8 +131,8 @@ There following test helpers are method of MicroTest::TestRunner.
 |ne( a, b )|a != b|test.ne( b, -5 )|Test values are not equal.|
 |lt( a, b )|a < b|test.lt( a, b )|Test less than.|
 |gt( a, b )|a > b|test.gt( a, b )|The greater than.|
-|lte( a, b )|a <= b|test.lte( a, b )|Test less than or equal.|
-|gte( a, b )|a >= b|test.gte( a , b)|Test greater than or equal.|
+|le( a, b )|a <= b|test.le( a, b )|Test less than or equal.|
+|ge( a, b )|a >= b|test.ge( a , b)|Test greater than or equal.|
 
 ## Compound Tests
 You may have a need to run a battery of tests in a single test block and make sure they all pass, there is a helper to make it simple.

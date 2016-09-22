@@ -1,5 +1,11 @@
 # Change Log
+## Version 1.6.1
+Breaking changes: Equality test helpers lte, gte changed.
 
+* lte renamed to le
+* gte renamed to ge
+
+---
 ## Version 1.6.0
 
 Enhancement, added new helper TestRunner::all(...) for compound testing.

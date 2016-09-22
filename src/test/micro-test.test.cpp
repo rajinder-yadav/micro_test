@@ -113,11 +113,11 @@ int main( int argc, char * argv[] )
    }
    test = "Test helper for <=";
    {
-      test.lte( 12, 12 );
+      test.le( 12, 12 );
    }
    test = "Test helper for >=";
    {
-      test.gte( 12, 12 );
+      test.ge( 12, 12 );
    }
    test = "Exception type double thrown";
    {
