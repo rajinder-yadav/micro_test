@@ -1,5 +1,13 @@
 # Change Log
 
+## Version 1.6.3
+Changed test output for Windows as it cannot use ANSI terminal control characters for color output.
+
+Fixed CMake Makefile, removed pthread, not required and was breaking builds on Windows.
+
+Micro Test now builds and runs on Linux, Mac, Windows.
+
+---
 ## Version 1.6.2
 
 Updated Equality test helpers TestRunner::eq and TestRunner::ne for improved string comparison support.

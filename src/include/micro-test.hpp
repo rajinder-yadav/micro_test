@@ -30,7 +30,7 @@ using std::clog;
 
 namespace MicroTest
 {
-   const std::string VERSION( "1.6.2" );
+   const std::string VERSION( "1.6.3" );
 
    #define setup_fixture [&]
    #define cleanup_fixture [&]
