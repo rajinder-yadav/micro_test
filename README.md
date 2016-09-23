@@ -191,8 +191,8 @@ More details on exception testing is provided under section 'Exception Testing'.
 
 |Method|Usage|Description|
 |------|-----|-----------|
-|ex<T>|test.ex<MyException>(lambda)|Check exception of type T is thrown.|
-|ex_not<T>|test.ex_not<int>(lambda)|Check exception of type T not thrown.|
+|ex\<T>|test.ex\<MyException>(lambda)|Check exception of type T is thrown.|
+|ex_not\<T>|test.ex_not\<int>(lambda)|Check exception of type T not thrown.|
 |ex_any|test.ex_any(lambda)|Check any exception is thrown.|
 |ex_none|test.ex_none(lambda)|Check no exception is thrown.|
 
