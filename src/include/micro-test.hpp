@@ -40,8 +40,8 @@ namespace MicroTest
    const std::string FAIL("Fail:");
    const std::string WHITE("");
    #else
-   const std::string PASS("[32mPass:");
-   const std::string FAIL("[31mFail:");
+   const std::string PASS("\x1B[32mPass:");
+   const std::string FAIL("\x1B[31mFail:");
    const std::string WHITE("[37m");
    #endif
 
@@ -88,8 +88,7 @@ namespace MicroTest
 
          if ( !fail_mode )
          {
-            clog << char( 0x1B )
-                 << PASS
+            clog << PASS
                  << test_description
                  << char( 0x1B )
                  << WHITE
@@ -101,8 +100,7 @@ namespace MicroTest
       void Fail()
       {
          ++fail;
-         clog << char( 0x1B )
-              << FAIL
+         clog << FAIL
               << test_description
               << char( 0x1B )
               << WHITE
