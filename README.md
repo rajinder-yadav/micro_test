@@ -4,7 +4,7 @@ Testing just got a whole lot simpler, faster and fun to get done, you have no mo
 
 I wrote Micro Test because I believe writing tests and setting up a test project should be simple and painless.
 
-## Just say No and GO!
+## Say No and GO!
 
 1. No need to build a separate library.
 1. No linking or DLL hell.
