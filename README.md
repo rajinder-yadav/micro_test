@@ -328,8 +328,10 @@ The Micro Test framework can be used to test C/C++ code, however you will requir
 
 You will need CMake to build the sample test project. Step to build the project from the terminal:
 
+Building steps for Linux and MacOS
 ```
-cd <project_root_folder>
+git clone https://rajinder_yadav@bitbucket.org/rajinder_yadav/micro_test.git
+cd micro_test
 mkdir build
 cd build
 cmake -G "Unix Makefiles" -D CMAKE_BUILD_TYPE="Release" ../src
@@ -342,6 +344,20 @@ Run the sample code.
 For Windows change the cmake command above to:
 
 cmake -G "NMake Makefiles" -D CMAKE_BUILD_TYPE="Release" ../src
+```
+
+## Building With MinGW on Windows
+
+Building with MinGW (No MSYS)
+```
+cmake -G "MinGW Makefiles" CMAKE_BUILD_TYPE="Release" ../src
+mingw32-make
+```
+
+Building from MSYS with MinGW
+```
+cmake -G "MinGW Makefiles" CMAKE_BUILD_TYPE="Release" ../src
+make
 ```
 
 ## Sample Code
