@@ -36,12 +36,12 @@ namespace MicroTest
    #define cleanup_fixture [&]
 
    #if defined ( _WINDOWS ) || defined( _WIN32 )
-   const std::string PASS("Pass:");
-   const std::string FAIL("Fail:");
+   const std::string PASS("Pass: ");
+   const std::string FAIL("Fail: ");
    const std::string WHITE("");
    #else
-   const std::string PASS("\x1B[32mPass:");
-   const std::string FAIL("\x1B[31mFail:");
+   const std::string PASS("\x1B[32mPass: ");
+   const std::string FAIL("\x1B[31mFail: ");
    const std::string WHITE("[37m");
    #endif
 
