@@ -134,7 +134,7 @@ int main( int argc, char * argv[] )
    {
       test.ex<double>( []
       {
-         throw ( 12.34D );
+         throw ( 12.34 );
       } );
    }
    test = "Exception TestException thrown";
