@@ -35,6 +35,16 @@ namespace MicroTest
    #define setup_fixture [&]
    #define cleanup_fixture [&]
 
+   #if defined ( _WINDOWS ) || defined( _WIN32 )
+   const std::string PASS("Pass:");
+   const std::string FAIL("Fail:");
+   const std::string WHITE("");
+   #else
+   const std::string PASS("[32mPass:");
+   const std::string FAIL("[31mFail:");
+   const std::string WHITE("[37m");
+   #endif
+
    class TestRunner
    {
       // RAII fixture helper.
@@ -79,10 +89,10 @@ namespace MicroTest
          if ( !fail_mode )
          {
             clog << char( 0x1B )
-                 << "[32mPass: "
+                 << PASS
                  << test_description
                  << char( 0x1B )
-                 << "[37m"
+                 << WHITE
                  << "\n"
                  << std::flush;
          }
@@ -92,10 +102,10 @@ namespace MicroTest
       {
          ++fail;
          clog << char( 0x1B )
-              << "[31mFail: "
+              << FAIL
               << test_description
               << char( 0x1B )
-              << "[37m"
+              << WHITE
               << "\n"
               << std::flush;
       }
