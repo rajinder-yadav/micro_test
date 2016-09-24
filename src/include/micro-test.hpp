@@ -45,11 +45,11 @@ namespace MicroTest
 
 #if defined ( _WINDOWS ) || defined( _WIN32 ) || defined( _PLAIN_TEXT )
    const std::string PASS( "Pass: " );
-   const std::string FAIL( "Fail: " );
+   const std::string FAIL( "FAIL: " );
    const std::string WHITE( "" );
 #else
    const std::string PASS( "\x1B[32mPass: " );
-   const std::string FAIL( "\x1B[31mFail: " );
+   const std::string FAIL( "\x1B[31mFAIL: " );
    const std::string WHITE( "\x1B[37m" );
 #endif
 
