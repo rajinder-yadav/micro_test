@@ -155,10 +155,11 @@ namespace MicroTest
                       << "================\n\n"
                       << argv[0] << " [OPTIONS]\n\n"
                       << "OPTIONS\n"
-                      << "   -h Output usage message and exit.\n"
-                      << "   -a Show all test results (default mode).\n"
-                      << "   -f Show only failing results.\n"
-                      << "   -s Show only the summary report.\n\n";
+                      << "   <blank>  No arguments passed, show all test results.\n"
+                      << "   -a       Show all test results.\n"
+                      << "   -f       Show only failing results.\n"
+                      << "   -s       Show only the summary report.\n"
+                      << "   -h       Output this usage message and exit.\n\n";
                       exit(1);
          } // switch
       }
