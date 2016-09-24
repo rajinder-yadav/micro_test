@@ -62,7 +62,7 @@ class TestException
 
 int main( int argc, char * argv[] )
 {
-   MicroTest::TestRunner test;
+   MicroTest::TestRunner test( argc, argv );
 
    Person * p1;
    Person * p2;
@@ -120,7 +120,7 @@ int main( int argc, char * argv[] )
       test.ne( p1->Name(), p3->Name() );
       test.shouldFail();
    }
-   // No longer need a fixture.~
+   // No longer need fixture.
    test.fixture();
 
    //=========================

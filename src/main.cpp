@@ -38,7 +38,7 @@ int main( int argc, char * argv[] )
     * This will kick off the tests.
     * We place each test inside blocks to localize variable declarations.
     */
-   MicroTest::TestRunner test;
+   MicroTest::TestRunner test( argc, argv );
 
    /* Example for setting a Fixture.
     * Setup is called before each test.
