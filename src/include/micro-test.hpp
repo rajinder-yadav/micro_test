@@ -32,18 +32,18 @@ namespace MicroTest
 {
    const std::string VERSION( "1.7.0" );
 
-   #define setup_fixture [&]
-   #define cleanup_fixture [&]
+#define setup_fixture [&]
+#define cleanup_fixture [&]
 
-   #if defined ( _WINDOWS ) || defined( _WIN32 ) || defined( _PLAIN_TEXT )
-   const std::string PASS("Pass: ");
-   const std::string FAIL("Fail: ");
-   const std::string WHITE("");
-   #else
-   const std::string PASS("\x1B[32mPass: ");
-   const std::string FAIL("\x1B[31mFail: ");
-   const std::string WHITE("\x1B[37m");
-   #endif
+#if defined ( _WINDOWS ) || defined( _WIN32 ) || defined( _PLAIN_TEXT )
+   const std::string PASS( "Pass: " );
+   const std::string FAIL( "Fail: " );
+   const std::string WHITE( "" );
+#else
+   const std::string PASS( "\x1B[32mPass: " );
+   const std::string FAIL( "\x1B[31mFail: " );
+   const std::string WHITE( "\x1B[37m" );
+#endif
 
    class TestRunner
    {
@@ -55,7 +55,7 @@ namespace MicroTest
          TestRunner * tr;
 
       public:
-         Fixture( TestRunner * p ) : tr( p )
+         Fixture( TestRunner * i_testrunner ) : tr( i_testrunner )
          {
          }
          ~Fixture()
@@ -86,7 +86,7 @@ namespace MicroTest
 
       std::string test_description;
 
-      void Pass()
+      void test_status_pass()
       {
          ++pass;
          test_result = true;
@@ -100,28 +100,29 @@ namespace MicroTest
          }
       }
 
-      void Fail()
+      void test_status_fail()
       {
          ++fail;
          test_result = false;
+
          if ( report_mode < RM_SUMMARY )
-         clog << FAIL
-              << test_description
-              << WHITE
-              << std::endl;
+            clog << FAIL
+                 << test_description
+                 << WHITE
+                 << std::endl;
       }
 
-      void check( bool status )
+      void check( const bool i_status )
       {
          Fixture fix( this );
 
-         if ( status )
+         if ( i_status )
          {
-            Pass();
+            test_status_pass();
          }
          else
          {
-            Fail();
+            test_status_fail();
          }
 
          // Clear error buffer & error states
@@ -129,50 +130,52 @@ namespace MicroTest
          err_out.clear();
       }
 
-      void ProgramArguments( int argc, char * argv[] )
+      void program_arguments( const int i_argc, const char * const i_argv[] )
       {
-         if( argc < 2 ) {
+         if ( i_argc < 2 )
+         {
             report_mode = RM_ALL;
             return;
          }
 
-         switch( argv[1][1] )
+         switch ( i_argv[1][1] )
          {
-            case 'a':
+         case 'a':
             report_mode = RM_ALL;
             break;
 
-            case 'f':
+         case 'f':
             report_mode = RM_FAIL;
             break;
 
-            case 's':
+         case 's':
             report_mode = RM_SUMMARY;
             break;
 
-            default:
+         default:
             std::cout << "\nMicro Test Usage\n"
                       << "================\n\n"
-                      << argv[0] << " [OPTIONS]\n\n"
+                      << i_argv[0] << " [OPTIONS]\n\n"
                       << "OPTIONS\n"
                       << "   <blank>  No arguments passed, show all test results.\n"
                       << "   -a       Show all test results.\n"
                       << "   -f       Show only failing results.\n"
                       << "   -s       Show only the summary report.\n"
                       << "   -h       Output this usage message and exit.\n\n";
-                      exit(1);
+            exit( 1 );
          } // switch
       }
 
       template <typename TEX>
-      void exception( lambda_t fn, bool exception_expected = true )
+      void exception( const lambda_t i_fn,
+                      const bool i_exception_expected = true )
       {
          bool exception_thrown = false;
          Fixture fix( this );
 
          try
          {
-            fn();
+            i_fn();
             exception_thrown = false;
          }
          catch ( TEX & ex )
@@ -185,14 +188,14 @@ namespace MicroTest
             exception_thrown = false;
          }
 
-         if ( ( exception_thrown && exception_expected ) ||
-              ( !exception_thrown && !exception_expected ) )
+         if ( ( exception_thrown && i_exception_expected ) ||
+              ( !exception_thrown && !i_exception_expected ) )
          {
-            Pass();
+            test_status_pass();
          }
          else
          {
-            Fail();
+            test_status_fail();
          }
 
          // Clear error buffer & error states
@@ -201,13 +204,14 @@ namespace MicroTest
       }
 
    public:
-      explicit TestRunner( int argc = 1, char * argv[] = nullptr )
+      explicit TestRunner( const int i_argc = 1,
+                           const char * const i_argv[] = nullptr )
          : pass{}
          , fail{}
          , setup{}
          , cleanup{}
       {
-         ProgramArguments( argc, argv );
+         program_arguments( i_argc, i_argv );
 
          // Capture cerr, don't want test output polluted.
          cerr_buf = std::cerr.rdbuf( err_out.rdbuf() );
@@ -229,93 +233,94 @@ namespace MicroTest
          std::cerr.rdbuf( cerr_buf );
       }
 
-      void shouldPass() const
+      void should_pass() const
       {
-         if(test_result == false)
+         if ( test_result == false )
          {
             clog << "Error! Unexpected test result!" << std::endl;
-            exit(1);
+            exit( 1 );
          }
       }
-      void shouldFail() const
+      void should_fail() const
       {
-         if(test_result == true)
+         if ( test_result == true )
          {
             clog << "Error! Unexpected test result!" << std::endl;
-            exit(1);
+            exit( 1 );
          }
       }
 
-      void operator=( const std::string & message )
+      void operator=( const std::string & i_message )
       {
          if ( setup )
          {
             setup();
          }
 
-         test_description = message;
+         test_description = i_message;
       }
 
-      void operator()( bool flag )
+      void operator()( const bool i_flag )
       {
-         check( flag );
+         check( i_flag );
       }
 
-      void fixture( lambda_t init = nullptr, lambda_t term = nullptr )
+      void fixture( const lambda_t i_setup = nullptr,
+                    const lambda_t i_cleanup = nullptr )
       {
-         setup = init;
-         cleanup = term;
+         setup = i_setup;
+         cleanup = i_cleanup;
       }
 
       /**
           * Equality Test Helper
           */
       template <typename T>
-      void t( T v )
+      void t( T i_v )
       {
-         check( v == true );
+         check( i_v == true );
       }
       template <typename T>
-      void f( T v )
+      void f( T i_v )
       {
-         check( v == false );
+         check( i_v == false );
       }
       template <typename T>
-      void eq( T l, T r )
+      void eq( T i_l, T i_r )
       {
-         check( l == r );
+         check( i_l == i_r );
       }
       template <typename T>
-      void ne( T l, T r )
+      void ne( T i_l, T i_r )
       {
-         check( l != r );
+         check( i_l != i_r );
       }
       template <typename T>
-      void lt( T l, T r )
+      void lt( T i_l, T i_r )
       {
-         check( l < r );
+         check( i_l < i_r );
       }
       template <typename T>
-      void gt( T l, T r )
+      void gt( T i_l, T i_r )
       {
-         check( l > r );
+         check( i_l > i_r );
       }
       template <typename T>
-      void le( T l, T r )
+      void le( T i_l, T i_r )
       {
-         check( l <= r );
+         check( i_l <= i_r );
       }
       template <typename T>
-      void ge( T l, T r )
+      void ge( T i_l, T i_r )
       {
-         check( l >= r );
+         check( i_l >= i_r );
       }
 
       template <typename... Args>
-      void all( Args... args )
+      void all( Args... i_args )
       {
-         const int size = sizeof...( args );
-         bool status[size] = {args...};
+         const int size = sizeof...( i_args );
+         bool status[size] = {i_args...};
 
          for ( int i = 0; i < size; ++i )
          {
@@ -332,21 +337,21 @@ namespace MicroTest
       /**
        * String Comparison Helpers
        */
-      void eq(const std::string & s1, const std::string & s2)
+      void eq( const std::string & i_s1, const std::string & i_s2 )
       {
-         check(s1.compare(s2) == 0);
+         check( i_s1.compare( i_s2 ) == 0 );
       }
-      void eq(const char * s1, const char * s2 )
+      void eq( const char * i_s1, const char * i_s2 )
       {
-         check( std::string(s1).compare(s2) == 0 );
+         check( std::string( i_s1 ).compare( i_s2 ) == 0 );
       }
-      void ne(const std::string & s1, const std::string & s2)
+      void ne( const std::string & i_s1, const std::string & i_s2 )
       {
-         check(s1.compare(s2) != 0);
+         check( i_s1.compare( i_s2 ) != 0 );
       }
-      void ne(const char * s1, const char * s2 )
+      void ne( const char * i_s1, const char * i_s2 )
       {
-         check( std::string(s1).compare(s2) != 0 );
+         check( std::string( i_s1 ).compare( i_s2 ) != 0 );
       }
 
 
@@ -356,44 +361,44 @@ namespace MicroTest
 
       // Test exception T is thrown.
       template <typename T>
-      void ex( lambda_t fn )
+      void ex( const lambda_t i_fn )
       {
-         exception<T>( fn, true );
+         exception<T>( i_fn, true );
       }
       // Test exception T is never thrown.
       template <typename T>
-      void ex_not( lambda_t fn )
+      void ex_not( const lambda_t i_fn )
       {
-         exception<T>( fn, false );
+         exception<T>( i_fn, false );
       }
       // Test any exception is thrown.
-      void ex_any( lambda_t fn )
+      void ex_any( const lambda_t i_fn )
       {
          Fixture fix( this );
 
          try
          {
-            fn();
-            Fail();
+            i_fn();
+            test_status_fail();
          }
          catch ( ... )
          {
-            Pass();
+            test_status_pass();
          }
       }
       // Test no exception is ever thrown of any type.
-      void ex_none( lambda_t fn )
+      void ex_none( const lambda_t i_fn )
       {
          Fixture fix( this );
 
          try
          {
-            fn();
-            Pass();
+            i_fn();
+            test_status_pass();
          }
          catch ( ... )
          {
-            Fail();
+            test_status_fail();
          }
       }
    };
