@@ -25,6 +25,7 @@
 #define _micro_test_hpp_
 
 /** Header files to include for Micro Test (Best practice, add to your source).
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <fstream>

@@ -14,6 +14,7 @@
  * Notice: This Software is provided as-is without warrant.
  */
 
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <fstream>

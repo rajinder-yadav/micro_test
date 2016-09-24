@@ -35,6 +35,7 @@
 //
 // MICRO TEST VERIFICATION SUCCESSFULL.
 //
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <fstream>
