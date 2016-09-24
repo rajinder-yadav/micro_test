@@ -14,6 +14,27 @@
  * Notice: This Software is provided as-is without warrant.
  */
 
+// =============================================================================
+// IMPORTANT - This health check must pass, before any code change is commited.
+// IMPORTANT - This health check must pass, before any code change is commited.
+// IMPORTANT - This health check must pass, before any code change is commited.
+// =============================================================================
+
+// MICRO TEST HEALTH CHECK
+//
+// This file contains a set of test to be run against Micro Test.
+// Each "Test Helper" is verified with a pair of passing and failing test.
+// If a test helper fails, the program will terminate with the error message:
+//
+// Error! Unexpected test result
+//
+// If this message is encountered, the test helper and Micro Test code must be
+// investigated and corrected.
+//
+// The health check message we should see is:
+//
+// MICRO TEST VERIFICATION SUCCESSFULL.
+//
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -35,7 +56,6 @@ public:
    }
 };
 
-
 class TestException
 {
 };
@@ -47,11 +67,6 @@ int main( int argc, char * argv[] )
    Person * p1;
    Person * p2;
    Person * p3;
-
-   /**
-    * Each tests has duplicates.
-    * First test should pass, Second test should fail.
-    */
 
    //=========================
    // Test Fixture
@@ -233,7 +248,7 @@ int main( int argc, char * argv[] )
    {
       test.ex<TestException>( []
       {
-         throw ("Error");
+         throw ( "Error" );
       } );
       test.shouldFail();
    }
@@ -251,7 +266,7 @@ int main( int argc, char * argv[] )
       test.ex_not<int>( []
       {
          // Not the exception we're looking for!
-         throw(1);
+         throw ( 1 );
       } );
       test.shouldFail();
    }
@@ -282,7 +297,7 @@ int main( int argc, char * argv[] )
    {
       test.ex_none( []
       {
-         throw("Ex");
+         throw ( "Ex" );
       } );
       test.shouldFail();
    }
@@ -508,4 +523,6 @@ int main( int argc, char * argv[] )
       test.shouldFail();
    }
 
+   // This MUST is the last line in the code.
+   clog << "\nMICRO TEST VERIFICATION SUCCESSFULL\n\n";
 }
