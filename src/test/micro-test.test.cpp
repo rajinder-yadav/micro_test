@@ -93,32 +93,32 @@ int main( int argc, char * argv[] )
    test = "Person p1 and p1 have the same name";
    {
       test.eq( p1->Name(), p1->Name() );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Person p1 and p1 have the same name";
    {
       test.ne( p1->Name(), p1->Name() );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Person p1 and p2 don't have the same name";
    {
       test.ne( p1->Name(), p2->Name() );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Person p1 and p2 don't have the same name";
    {
       test.eq( p1->Name(), p2->Name() );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Person p1 and p3 have the same name";
    {
       test.eq( p1->Name(), p3->Name() );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Person p1 and p3 have the same name";
    {
       test.ne( p1->Name(), p3->Name() );
-      test.shouldFail();
+      test.should_fail();
    }
    // No longer need fixture.
    test.fixture();
@@ -129,92 +129,92 @@ int main( int argc, char * argv[] )
    test = "Test boolean";
    {
       test( true );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Test boolean";
    {
       test( false );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Test helper for 'true'";
    {
       test.t( true );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Test helper for 'true'";
    {
       test.t( false );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Test helper for 'false'";
    {
       test.f( false );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Test helper for 'false'";
    {
       test.f( true );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Test helper for ==";
    {
       test.eq( 12, 12 );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Test helper for ==";
    {
       test.eq( 123, 12 );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Test helper for !=";
    {
       test.ne( 123, 321 );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Test helper for !=";
    {
       test.ne( 123, 123 );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Test helper for <";
    {
       test.lt( 12, 19 );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Test helper for <";
    {
       test.lt( 122, 19 );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Test helper for >";
    {
       test.gt( 100, 10 );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Test helper for >";
    {
       test.gt( 1, 10 );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Test helper for <=";
    {
       test.le( 12, 12 );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Test helper for <=";
    {
       test.le( 22, 12 );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Test helper for >=";
    {
       test.ge( 12, 12 );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Test helper for >=";
    {
       test.ge( 2, 12 );
-      test.shouldFail();
+      test.should_fail();
    }
 
    //=========================
@@ -226,7 +226,7 @@ int main( int argc, char * argv[] )
       {
          throw ( 12.34 );
       } );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Exception type double thrown";
    {
@@ -234,7 +234,7 @@ int main( int argc, char * argv[] )
       {
          throw ( 12 );
       } );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Exception TestException thrown";
    {
@@ -242,7 +242,7 @@ int main( int argc, char * argv[] )
       {
          throw TestException();
       } );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Exception TestException thrown";
    {
@@ -250,7 +250,7 @@ int main( int argc, char * argv[] )
       {
          throw ( "Error" );
       } );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Exception type int not thrown";
    {
@@ -259,7 +259,7 @@ int main( int argc, char * argv[] )
          // Not the exception we're looking for!
          throw TestException();
       } );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Exception type int not thrown";
    {
@@ -268,7 +268,7 @@ int main( int argc, char * argv[] )
          // Not the exception we're looking for!
          throw ( 1 );
       } );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Any exception is thrown";
    {
@@ -276,14 +276,14 @@ int main( int argc, char * argv[] )
       {
          throw std::exception();
       } );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Any exception is thrown";
    {
       test.ex_any( []
       {
       } );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "No exception is thrown";
    {
@@ -291,7 +291,7 @@ int main( int argc, char * argv[] )
       {
          // NOP
       } );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "No exception is thrown";
    {
@@ -299,7 +299,7 @@ int main( int argc, char * argv[] )
       {
          throw ( "Ex" );
       } );
-      test.shouldFail();
+      test.should_fail();
    }
 
    //=========================
@@ -308,22 +308,22 @@ int main( int argc, char * argv[] )
    test = "Compund statements first fails (should fail)";
    {
       test.all( false, true, true );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Compund statements last fails (should fail)";
    {
       test.all( true, true, false );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Compund statements all fails (should fail)";
    {
       test.all( false, false, false );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Compund statements all pass";
    {
       test.all( true, true, true );
-      test.shouldPass();
+      test.should_pass();
    }
 
    //=========================
@@ -334,96 +334,96 @@ int main( int argc, char * argv[] )
       const char a1[] = "Sun!";
       const char a2[] = "Sun!";
       test.eq( a1, a2 );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Two C array string comparison";
    {
       const char a1[] = "Sun!";
       const char a2[] = "Car";
       test.eq( a1, a2 );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Two C pointer string comparison";
    {
       const char * a1 = "Sun!";
       const char * a2 = "Sun!";
       test.eq( a1, a2 );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Two C pointer string comparison";
    {
       const char * a1 = "Sun!";
       const char * a2 = "Car";
       test.eq( a1, a2 );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Two C string comparison";
    {
       test.eq( "Boat", "Boat" );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Two C string comparison";
    {
       test.eq( "Boat", "Goat" );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "C string with std::string comparison";
    {
       test.eq( "Boat", std::string( "Boat" ) );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "C string with std::string comparison";
    {
       test.eq( "Goat", std::string( "Boat" ) );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "std::string with C string comparison";
    {
       test.eq( std::string( "Boat" ), "Boat" );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "std::string with C string comparison";
    {
       test.eq( std::string( "Goat" ), "Boat" );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "C pointer string and string comparison";
    {
       const char * a1 = "Sun!";
       test.eq( a1, "Sun!" );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "C pointer string and string comparison";
    {
       const char * a1 = "Sun!";
       test.eq( a1, "Fun!" );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "String and C pointer string comparison";
    {
       const char * a2 = "Sun!";
       test.eq( "Sun!", a2 );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "String and C pointer string comparison";
    {
       const char * a2 = "Sun!";
       test.eq( "Fun!", a2 );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Two std::string comparison";
    {
       std::string s1( "Elephant" );
       std::string s2( "Elephant" );
       test.eq( s1, s2 );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Two std::string comparison";
    {
       std::string s1( "Elephant" );
       std::string s2( "Hose" );
       test.eq( s1, s2 );
-      test.shouldFail();
+      test.should_fail();
    }
 
    test = "Two C array string comparison";
@@ -431,96 +431,96 @@ int main( int argc, char * argv[] )
       const char a1[] = "Sun!";
       const char a2[10] = "Moon!";
       test.ne( a1, a2 );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Two C array string comparison";
    {
       const char a1[] = "Sun!";
       const char a2[10] = "Sun!";
       test.ne( a1, a2 );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Two C pointer string comparison";
    {
       const char * a1 = "Sun!";
       const char * a2 = "Moon!";
       test.ne( a1, a2 );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Two C pointer string comparison";
    {
       const char * a1 = "Sun!";
       const char * a2 = "Sun!";
       test.ne( a1, a2 );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Two different C string comparison";
    {
       test.ne( "Boat", "Goat" );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Two different C string comparison";
    {
       test.ne( "Goat", "Goat" );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "C string with different std::string comparison";
    {
       test.ne( "Boat", std::string( "Goat" ) );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "C string with different std::string comparison";
    {
       test.ne( "Goat", std::string( "Goat" ) );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "std::string with different C string comparison";
    {
       test.ne( std::string( "Boat" ), "Goat" );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "std::string with different C string comparison";
    {
       test.ne( std::string( "Goat" ), "Goat" );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "C pointer string and different string comparison";
    {
       const char * a1 = "Sun!";
       test.ne( a1, "Moon!" );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "C pointer string and different string comparison";
    {
       const char * a1 = "Sun!";
       test.ne( a1, "Sun!" );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "String and different C pointer string comparison";
    {
       const char * a2 = "Moon!";
       test.ne( "Sun!", a2 );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "String and different C pointer string comparison";
    {
       const char * a2 = "Moon!";
       test.ne( "Moon!", a2 );
-      test.shouldFail();
+      test.should_fail();
    }
    test = "Two different std::string comparison";
    {
       std::string s1( "Elephant" );
       std::string s2( "Horse" );
       test.ne( s1, s2 );
-      test.shouldPass();
+      test.should_pass();
    }
    test = "Two different std::string comparison";
    {
       std::string s1( "Elephant" );
       std::string s2( "Elephant" );
       test.ne( s1, s2 );
-      test.shouldFail();
+      test.should_fail();
    }
 
    // This MUST is the last line in the code.
