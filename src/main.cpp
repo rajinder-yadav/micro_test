@@ -99,7 +99,7 @@ int main( int argc, char * argv[] )
          throw ( 1 );
       } );
    }
-   test = "Check exception of type 'int' is thrown (should fail)";
+   test = "Check exception of type 'int' is thrown";
    {
       // We're expecting an exception, none is thrown, so test fails.
       test.ex<int>( []
@@ -122,7 +122,7 @@ int main( int argc, char * argv[] )
          throw TestException();
       } );
    }
-   test = "Check if correct exception is thrown (should fail)";
+   test = "Check if correct exception is thrown";
    {
       // Expecting an exception of type TestException to be thrown.
       test.ex<TestException>( []
