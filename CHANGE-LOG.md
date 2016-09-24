@@ -1,5 +1,39 @@
 # Change Log
 
+## Version 1.7.0
+Support added for optional program argument passing.
+
+To enable mode testing, pass the program argument from main to **MicroTest::TestRunner** constructor.
+
+Make sure main entry point is coded as:
+
+```C++
+int main( int argc, char * argv[] )
+```
+
+Now just modify the test object constructor to:
+
+```C++
+MicroTest::TestRunner test( argc, argv );
+```
+
+You will now have the following _optional_ test modes.
+
+|Option|Test Mode|
+|------|-----------|
+|      |No options passed, show all test results.|
+| -a   |Show all test results.|
+| -f   |Show only failing test results.|
+| -s   |Show only the summary report.|
+| -h   |Show  this usage message.|
+
+
+**Fail Mode Example**
+
+![Failing Test Images](https://bytebucket.org/rajinder_yadav/micro_test/raw/d10a0c15c07ecac1523b1d899c5d2972f20df4ea/fails-only.png)
+
+
+---
 ## Version 1.6.3
 Changed test output for Windows as it cannot use ANSI terminal control characters for color output.
 
