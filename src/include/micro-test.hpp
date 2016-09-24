@@ -76,6 +76,8 @@ namespace MicroTest
       lambda_t setup;
       lambda_t cleanup;
 
+      bool test_result;
+
       // To capture cerr output
       std::stringstream err_out;
       std::streambuf * cerr_buf;
@@ -85,6 +87,7 @@ namespace MicroTest
       void Pass()
       {
          ++pass;
+         test_result = true;
 
          if ( !fail_mode )
          {
@@ -98,10 +101,11 @@ namespace MicroTest
       void Fail()
       {
          ++fail;
+         test_result = false;
          clog << FAIL
               << test_description
               << WHITE
-               << std::endl;
+              << std::endl;
       }
 
       void check( bool status )
@@ -184,6 +188,23 @@ namespace MicroTest
               << "Failed(" << fail << ")\n" << std::endl;
          // Restore cerr
          std::cerr.rdbuf( cerr_buf );
+      }
+
+      void shouldPass() const
+      {
+         if(test_result == false)
+         {
+            clog << "Error! Unexpected test result!" << std::endl;
+            exit(1);
+         }
+      }
+      void shouldFail() const
+      {
+         if(test_result == true)
+         {
+            clog << "Error! Unexpected test result!" << std::endl;
+            exit(1);
+         }
       }
 
       void operator=( const std::string & message )
