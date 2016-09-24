@@ -67,7 +67,7 @@ This following test output was taken from the sample code provided.
 
 ## Capturing Test Output
 
-You can redirect the test output to a file using the following command on Linux:
+If the test program is called 'micro_tester', you can redirect the test output to a file using the following command on Linux or Mac:
 ```
 ./micro_tester &> test.log
 ```
@@ -241,20 +241,39 @@ test = "Check exception gets thrown!";
 }
 ```
 
-## Fail Mode Testing
+## Adding Test Modes
 We all love to see those green passing tests light up, but what we really care about is the failing test. Once you got all passing tests, it's time to switch to (fail mode) seeing only failing test. It's less clutter and when you're refactoring and making changes, you only care about fixing the failing test.
 
-**Speed TIP** - Large tests will execute much faster, since the bottleneck is output to the terminal.
+**Speed TIP** - Large tests will execute much faster in fail or summary mode, since the bottleneck is output to the terminal.
 
-To enable fail mode testing, pass **true** to the test object constructor.
+To enable mode testing, pass the program argument from main to **MicroTest::TestRunner** constructor.
+
+Make sure main entry point is coded as:
 
 ```C++
-MicroTest::TestRunner test(true);
+int main( int argc, char * argv[] )
 ```
 
-When switched to fail mode, the output will now look like this.
+Now just modify the test object constructor to:
 
-![Failing Test Images](https://bytebucket.org/rajinder_yadav/micro_test/raw/ec86091c1170fdedb104b6af2d1edb63acc16f4c/fails-only.png)
+```C++
+MicroTest::TestRunner test( argc, argv );
+```
+
+You will now have the following _optional_ test modes.
+
+|Option|Test Mode|
+|------|-----------|
+|      |No options passed, show all test results.|
+| -a   |Show all test results.|
+| -f   |Show only failing test results.|
+| -s   |Show only the summary report.|
+| -h   |Show  this usage message.|
+
+
+**Fail Mode Example**
+
+![Failing Test Images](https://bytebucket.org/rajinder_yadav/micro_test/raw/d10a0c15c07ecac1523b1d899c5d2972f20df4ea/fails-only.png)
 
 ## Test Fixtures
 A test fixture is something that must be prepared and ready before a test block is executed. We can do this ourself, but it would become repetitive and bloat our test code unnecessarily. This is where a test fixture comes.
