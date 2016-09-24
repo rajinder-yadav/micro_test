@@ -169,7 +169,7 @@ namespace MicroTest
                       << "   -f       Show only failing results.\n"
                       << "   -s       Show only the summary report.\n"
                       << "   -h       Output this usage message and exit.\n\n";
-            exit( 1 );
+            std::exit( 1 );
          } // switch
       }
 
@@ -245,7 +245,7 @@ namespace MicroTest
          if ( test_result == false )
          {
             clog << "Error! Unexpected test result!" << std::endl;
-            exit( 1 );
+            std::exit( 1 );
          }
       }
       void should_fail() const
@@ -253,7 +253,7 @@ namespace MicroTest
          if ( test_result == true )
          {
             clog << "Error! Unexpected test result!" << std::endl;
-            exit( 1 );
+            std::exit( 1 );
          }
       }
 
@@ -348,7 +348,7 @@ namespace MicroTest
       {
          check( i_s1.compare( i_s2 ) == 0 );
       }
-      void eq( const char * i_s1, const char * i_s2 )
+      void eq( const char * const i_s1, const char * const i_s2 )
       {
          check( std::string( i_s1 ).compare( i_s2 ) == 0 );
       }
@@ -356,7 +356,7 @@ namespace MicroTest
       {
          check( i_s1.compare( i_s2 ) != 0 );
       }
-      void ne( const char * i_s1, const char * i_s2 )
+      void ne( const char * const i_s1, const char * const i_s2 )
       {
          check( std::string( i_s1 ).compare( i_s2 ) != 0 );
       }
