@@ -35,14 +35,14 @@ namespace MicroTest
    #define setup_fixture [&]
    #define cleanup_fixture [&]
 
-   #if defined ( _WINDOWS ) || defined( _WIN32 )
+   #if defined ( _WINDOWS ) || defined( _WIN32 ) || defined( _PLAIN_TEXT )
    const std::string PASS("Pass: ");
    const std::string FAIL("Fail: ");
    const std::string WHITE("");
    #else
    const std::string PASS("\x1B[32mPass: ");
    const std::string FAIL("\x1B[31mFail: ");
-   const std::string WHITE("[37m");
+   const std::string WHITE("\x1B[37m");
    #endif
 
    class TestRunner
@@ -90,10 +90,8 @@ namespace MicroTest
          {
             clog << PASS
                  << test_description
-                 << char( 0x1B )
                  << WHITE
-                 << "\n"
-                 << std::flush;
+                 << std::endl;
          }
       }
 
@@ -102,10 +100,8 @@ namespace MicroTest
          ++fail;
          clog << FAIL
               << test_description
-              << char( 0x1B )
               << WHITE
-              << "\n"
-              << std::flush;
+               << std::endl;
       }
 
       void check( bool status )
@@ -176,8 +172,8 @@ namespace MicroTest
               << "| Micro Test v" << VERSION << " for C/C++                     |\n"
               << "|                                                 |\n"
               << "| https://bitbucket.org/rajinder_yadav/micro_test |\n"
-              << "o=================================================o\n"
-              << std::flush;
+              << "o=================================================o"
+              << std::endl;
       }
 
       virtual ~TestRunner()
@@ -185,7 +181,7 @@ namespace MicroTest
          clog << "==============================================\n";
          clog << "Test Summary: Tests(" << pass + fail << ") "
               << "Passed(" << pass << ") "
-              << "Failed(" << fail << ")\n\n";
+              << "Failed(" << fail << ")\n" << std::endl;
          // Restore cerr
          std::cerr.rdbuf( cerr_buf );
       }
