@@ -14,6 +14,13 @@
  * Notice: This Software is provided as-is without warrant.
  */
 
+/*******************************************************
+ * CODE GUIDELIVE TO BE FOLLOWED FOUND HERE:
+ *
+ * https://bitbucket.org/rajinder_yadav/cpp_code_guide
+ *
+ *******************************************************/
+
 #ifndef _micro_test_hpp_
 #define _micro_test_hpp_
 
@@ -272,9 +279,9 @@ namespace MicroTest
          cleanup = i_cleanup;
       }
 
-      /**
-          * Equality Test Helper
-          */
+      //======================
+      // Equality Test Helper
+      //======================
       template <typename T>
       void t( T i_v )
       {
@@ -334,9 +341,9 @@ namespace MicroTest
          check( true );
       }
 
-      /**
-       * String Comparison Helpers
-       */
+      //==========================
+      // String Comparison Helpers
+      //==========================
       void eq( const std::string & i_s1, const std::string & i_s2 )
       {
          check( i_s1.compare( i_s2 ) == 0 );
@@ -354,10 +361,9 @@ namespace MicroTest
          check( std::string( i_s1 ).compare( i_s2 ) != 0 );
       }
 
-
-      /**
-          * Exception Test Helper
-          */
+      //======================
+      // Exception Test Helper
+      //======================
 
       // Test exception T is thrown.
       template <typename T>
