@@ -15,7 +15,7 @@
  */
 
 /*******************************************************
- * CODE GUIDELIVE TO BE FOLLOWED FOUND HERE:
+ * CODE GUIDELINE TO BE FOLLOWED FOUND HERE:
  *
  * https://bitbucket.org/rajinder_yadav/cpp_code_guide
  *
