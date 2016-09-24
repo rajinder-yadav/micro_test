@@ -30,7 +30,7 @@ using std::clog;
 
 namespace MicroTest
 {
-   const std::string VERSION( "1.6.3" );
+   const std::string VERSION( "1.7.0" );
 
    #define setup_fixture [&]
    #define cleanup_fixture [&]
@@ -47,6 +47,8 @@ namespace MicroTest
 
    class TestRunner
    {
+      enum ReportMode_e { RM_ALL, RM_FAIL, RM_SUMMARY };
+
       // RAII fixture helper.
       class Fixture
       {
@@ -71,7 +73,7 @@ namespace MicroTest
       uint32_t pass;
       uint32_t fail;
 
-      bool fail_mode;
+      ReportMode_e report_mode;
 
       lambda_t setup;
       lambda_t cleanup;
@@ -89,7 +91,7 @@ namespace MicroTest
          ++pass;
          test_result = true;
 
-         if ( !fail_mode )
+         if ( report_mode < RM_FAIL )
          {
             clog << PASS
                  << test_description
@@ -102,6 +104,7 @@ namespace MicroTest
       {
          ++fail;
          test_result = false;
+         if ( report_mode < RM_SUMMARY )
          clog << FAIL
               << test_description
               << WHITE
@@ -124,6 +127,40 @@ namespace MicroTest
          // Clear error buffer & error states
          err_out.str( "" );
          err_out.clear();
+      }
+
+      void ProgramArguments( int argc, char * argv[] )
+      {
+         if( argc < 2 ) {
+            report_mode = RM_ALL;
+            return;
+         }
+
+         switch( argv[1][1] )
+         {
+            case 'a':
+            report_mode = RM_ALL;
+            break;
+
+            case 'f':
+            report_mode = RM_FAIL;
+            break;
+
+            case 's':
+            report_mode = RM_SUMMARY;
+            break;
+
+            default:
+            std::cout << "\nMicro Test Usage\n"
+                      << "================\n\n"
+                      << argv[0] << " [OPTIONS]\n\n"
+                      << "OPTIONS\n"
+                      << "   -h Output usage message and exit.\n"
+                      << "   -a Show all test results (default mode).\n"
+                      << "   -f Show only failing results.\n"
+                      << "   -s Show only the summary report.\n\n";
+                      exit(1);
+         } // switch
       }
 
       template <typename TEX>
@@ -163,13 +200,14 @@ namespace MicroTest
       }
 
    public:
-      explicit TestRunner( bool enable_fail_mode = false )
+      explicit TestRunner( int argc = 1, char * argv[] = nullptr )
          : pass{}
          , fail{}
-         , fail_mode( enable_fail_mode )
          , setup{}
          , cleanup{}
       {
+         ProgramArguments( argc, argv );
+
          // Capture cerr, don't want test output polluted.
          cerr_buf = std::cerr.rdbuf( err_out.rdbuf() );
          clog << "\no=================================================o\n"
