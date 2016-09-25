@@ -412,3 +412,4 @@ namespace MicroTest
 } // namespace MicroTest
 
 #endif // _micro_test_hpp_
+
