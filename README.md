@@ -397,7 +397,7 @@ mingw32-make
 Building from MSYS with MinGW
 
 ```
-cmake -G "MinGW Makefiles" CMAKE_BUILD_TYPE="Release" ../src
+cmake -G "MSYS Makefiles" CMAKE_BUILD_TYPE="Release" ../src
 make
 ```
 
