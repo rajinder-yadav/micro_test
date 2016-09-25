@@ -12,14 +12,13 @@
  * Copyright (c) 2016 Rajinder Yadav <info@devmentor.org>
  *
  * Notice: This Software is provided as-is without warrant.
- */
-
-/*******************************************************
+ *
+ **************************************************************
  * CODE GUIDELINE TO BE FOLLOWED FOUND HERE:
  *
  * https://bitbucket.org/rajinder_yadav/cpp_code_guide
  *
- *******************************************************/
+ **************************************************************/
 
 #ifndef _micro_test_hpp_
 #define _micro_test_hpp_
