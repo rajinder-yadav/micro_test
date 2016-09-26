@@ -407,8 +407,11 @@ make
 
 Find test examples inside **main.cpp**, it will have the most up to date coding examples.
 
+### Thank You for using Micro Test!
+
+### Happy Safe Coding :-)
+---
 ## Contact
-If you like Micro Test, please share it with others :-) and shoot me an email to let me know you found it very helpful for your next project!
 
 **Rajinder Yadav**
 
@@ -417,5 +420,3 @@ If you like Micro Test, please share it with others :-) and shoot me an email to
 **Web:** http://labs.devmentor.org
 
 **Email:** info@devmentor.org
-
-Happy Safe Coding :-)
