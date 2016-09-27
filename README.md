@@ -91,6 +91,7 @@ Copy the file **micro-test.hpp** into the root of your test folder.
 Include the following header files from the source file of your test project.
 
 ```
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <fstream>
