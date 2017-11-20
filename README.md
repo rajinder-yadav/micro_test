@@ -6,7 +6,7 @@ Testing just got a whole lot simpler, faster and fun to get done, you have no mo
 
 I wrote Micro Test because I believe writing tests and setting up a test project should be simple and painless.
 
-## Say No and GO!
+## Say No and GO
 
 1. No need to build a separate library.
 1. No linking or DLL hell.
@@ -17,7 +17,9 @@ If you can make a "Hello World" program in C++, then you can go straight to _run
 
 ### Micro Test Community - Getting Help
 
-If you have questions, need help or have suggestions for improvements, join the Micro Test community on Gitter [Micro Test Group](https://gitter.im/devmentor-org/microtest)
+If you have questions, need help or have suggestions for improvements.
+
+Join the Micro Test community at [Dev Mentor](https://devmentor-group.slack.com/messages/C5P2U7RUK/) on Slack.
 
 ## Super Fast Execution
 
@@ -74,13 +76,13 @@ This following test output was taken from the sample code provided.
 
 If the test program is called 'micro_tester', you can redirect the test output to a file using the following command on Linux or Mac:
 
-```
+```sh
 ./micro_tester &> test.log
 ```
 
 ## KISS Principle
 
-Micro Test is a very small and lean test framework that is easy to learn and simple to setup. The framework has been intentionally kept simple, however I am aways open to feedback and suggestions for improvement here: [Micro Test Group on Gitter](https://gitter.im/devmentor-org/microtest)
+Micro Test is a very small and lean test framework that is easy to learn and simple to setup. The framework has been intentionally kept simple, however I am aways open to feedback and suggestions for improvement.
 
 This project exists for those who need something minimal to get going with testing, without the headache of complexity!
 
@@ -90,7 +92,7 @@ Copy the file **micro-test.hpp** into the root of your test folder.
 
 Include the following header files from the source file of your test project.
 
-```
+```C++
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -287,7 +289,6 @@ You will now have the following _optional_ test modes.
 | -s   |Show only the summary report.|
 | -h   |Show  this usage message.|
 
-
 **Fail Mode Example**
 
 ![Failing Test Images](https://bytebucket.org/rajinder_yadav/micro_test/raw/d10a0c15c07ecac1523b1d899c5d2972f20df4ea/fails-only.png)
@@ -371,20 +372,24 @@ You will need CMake to build the sample test project. Step to build the project 
 
 Building steps for Linux and MacOS
 
-```
+```sh
 git clone https://rajinder_yadav@bitbucket.org/rajinder_yadav/micro_test.git
 cd micro_test
 mkdir build
 cd build
 cmake -G "Unix Makefiles" -D CMAKE_BUILD_TYPE="Release" ../src
 make
+```
 
 Run the sample code.
 
+```sh
 ./micro_tester
+```
 
 For Windows change the cmake command above to:
 
+```sh
 cmake -G "NMake Makefiles" -D CMAKE_BUILD_TYPE="Release" ../src
 ```
 
@@ -392,32 +397,18 @@ cmake -G "NMake Makefiles" -D CMAKE_BUILD_TYPE="Release" ../src
 
 Building with MinGW (No MSYS)
 
-```
+```sh
 cmake -G "MinGW Makefiles" CMAKE_BUILD_TYPE="Release" ../src
 mingw32-make
 ```
 
 Building from MSYS with MinGW
 
-```
+```sh
 cmake -G "MSYS Makefiles" CMAKE_BUILD_TYPE="Release" ../src
 make
 ```
 
-## Sample Code
-
-Find test examples inside **main.cpp**, it will have the most up to date coding examples.
-
-### Thank You for using Micro Test!
+## Thanks for using Micro Test
 
 ### Happy Safe Coding :-)
----
-## Contact
-
-**Rajinder Yadav**
-
-**Labs DevMentor.org Corp.**
-
-**Web:** http://labs.devmentor.org
-
-**Email:** info@devmentor.org

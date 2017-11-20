@@ -8,8 +8,8 @@
  * @description
  * A micro testing framework for C++11 code.
  *
- * License: MIT License (MIT)
- * Copyright (c) 2016 Rajinder Yadav <info@devmentor.org>
+ * License: GNU Public License (GNU GPL)
+ * Copyright (c) 2016 Rajinder Yadav <devguy.ca@gmail.com>
  *
  * Notice: This Software is provided as-is without warrant.
  *
