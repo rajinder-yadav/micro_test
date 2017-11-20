@@ -2,28 +2,28 @@
 
 # Micro Test For Testing C++ Code
 
-Testing just got a whole lot simpler, faster and fun to get done, you have no more excuse not to write test code. If you're like me, you value your time, want to stay productive and most of all be writing solid production code and not having to wrestle a testing framework or test project.
+Testing just got a whole lot simpler, faster and fun to get done, you have no more excuse to avoid writing test code. If you're like me, you value your time and want to stay productive. Focused on writing production code and not wrestling a testing framework to write test code.
 
-I wrote Micro Test because I believe writing tests and setting up a test project should be simple and painless.
+I wrote Micro Test because I believe writing tests and setting up a test project should be quick and simple.
 
-## Say No and GO
+## Benefits of Micro Test
 
-1. No need to build a separate library.
+1. No need to build and link to a separate test library.
 1. No linking or DLL hell.
 1. No Complex build process.
 1. No Complex project setup.
 
-If you can make a "Hello World" program in C++, then you can go straight to _running_ with Micro Test.
+If you can make a "Hello World" program in C++, then you can go straight to _running_ with Micro Test in 5 minutes.
 
 ### Micro Test Community - Getting Help
 
-If you have questions, need help or have suggestions for improvements.
+Have questions, need help?
 
 Join the Micro Test community at [Dev Mentor](https://devmentor-group.slack.com/messages/C5P2U7RUK/) on Slack.
 
 ## Super Fast Execution
 
-Micro Test is blazing fast, an order of magititue faster than other C++ test frameworks, which I consider unnecessarily large and complex.
+Micro Test is blazing fast, an order of magnitude faster than other C++ test frameworks, which I consider unnecessarily large and complex.
 
 ## Beautiful Test Code
 
@@ -82,7 +82,7 @@ If the test program is called 'micro_tester', you can redirect the test output t
 
 ## KISS Principle
 
-Micro Test is a very small and lean test framework that is easy to learn and simple to setup. The framework has been intentionally kept simple, however I am aways open to feedback and suggestions for improvement.
+Micro Test is a very small and lean test framework that is easy to learn and simple to setup. The framework has been intentionally kept simple, however I am always open to feedback and suggestions for improvement.
 
 This project exists for those who need something minimal to get going with testing, without the headache of complexity!
 
@@ -214,7 +214,7 @@ More details on exception testing is provided under section 'Exception Testing'.
 
 Below is a discussion on using a lambda function as it relates to exception testing and fixtures.
 
-## Lamdba Function
+## Lambda Function
 
 A lambda function is an anonymous function. Currently it is used when testing for exception and when using a fixture. If you don't need either, you can skip this section.
 
@@ -295,7 +295,7 @@ You will now have the following _optional_ test modes.
 
 ## Test Fixtures
 
-A test fixture is something that must be prepared and ready before a test block is executed. We can do this ourself, but it would become repetitive and bloat our test code unnecessarily. This is where a test fixture comes.
+A test fixture is something that must be prepared and ready before a test block is executed. We can do this our self, but it would become repetitive and bloat our test code unnecessarily. This is where a test fixture comes.
 
 A fixture is optional, since most test cases can be performed without a fixture.
 
@@ -334,7 +334,7 @@ test.fixture(
 ## Fixture Usage Details
 
 1. Variables must be declared before a fixture declaration.
-1. Varabiles must be visible to the test using the fixture.
+1. Variables must be visible to the test using the fixture.
 
 If you're familiar and comfortable with C++11 lambda, you can use '[&]' to replace both 'setup_fixture' and 'cleanup_fixture', both of which are defines to it.
 
